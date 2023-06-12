@@ -88,17 +88,28 @@ class _DreamyPageState extends State<DreamyPage> {
                     ),
                     Text(
                       r"Perrell Brown, more known by his online name DreamybullXXX, is an internet personality, most notable for his workout videos on Twitter.",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
                     ),
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
-                        "DreamybullXXX was born on April 20, 1989 in Barangay Ambasing, Sagada, Philippines. His Japanese parents migrated to the Philippines in 1981 during the insurgency of Badublou on their hometown that began right after the kamikaze death of his grandfather, Amuba Tokamu."),
+                      "DreamybullXXX was born on April 20, 1989 in Barangay Ambasing, Sagada, Philippines. His Japanese parents migrated to the Philippines in 1981 during the insurgency of Badublou on their hometown that began right after the kamikaze death of his grandfather, Amuba Tokamu.",
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
                     SizedBox(
                       height: 10.0,
                     ),
                     Text(
-                        r'His workout career on Twitter began to blow up after the success of his promotional campaign in early 2021, showing his entire body to many of his twitter followers doing the so-called "Bussing Challenge". This led to more engagement on his Twitter account and pushing him to pursue his bodybuilding career even more.'),
+                      r'His workout career on Twitter began to blow up after the success of his promotional campaign in early 2021, showing his entire body to many of his twitter followers doing the so-called "Bussing Challenge". This led to more engagement on his Twitter account and pushing him to pursue his bodybuilding career even more.',
+                      style: TextStyle(
+                        fontSize: 18,
+                      ),
+                    ),
                   ],
                 ),
               ),

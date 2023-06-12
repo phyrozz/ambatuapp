@@ -25,7 +25,7 @@ class FixedHeaderDelegate extends SliverPersistentHeaderDelegate {
         text,
         style: TextStyle(
           fontSize: fontSize,
-          fontWeight: FontWeight.w400,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

@@ -28,7 +28,6 @@ class CharacterListPage extends StatelessWidget {
                 delegate: SliverChildListDelegate([
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context); // Close the drawer
                       Navigator.pushNamed(context,
                           '/characters/dreamy'); // Navigate to the stats page
                     },
@@ -64,7 +63,6 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context); // Close the drawer
                       Navigator.pushNamed(context,
                           '/characters/ankaming'); // Navigate to the stats page
                     },
@@ -91,7 +89,7 @@ class CharacterListPage extends StatelessWidget {
                           padding: EdgeInsets.all(10.0),
                           alignment: Alignment.bottomLeft,
                           child: Text(
-                            'Ankaming',
+                            'Amkaming',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),
@@ -100,7 +98,6 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context); // Close the drawer
                       Navigator.pushNamed(context,
                           '/characters/bunda'); // Navigate to the stats page
                     },
@@ -136,7 +133,6 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context); // Close the drawer
                       Navigator.pushNamed(context,
                           '/characters/kakangku'); // Navigate to the stats page
                     },
@@ -172,7 +168,6 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context); // Close the drawer
                       Navigator.pushNamed(context,
                           '/characters/nissan'); // Navigate to the stats page
                     },
@@ -208,7 +203,6 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pop(context); // Close the drawer
                       Navigator.pushNamed(context,
                           '/characters/ampassing'); // Navigate to the stats page
                     },
@@ -236,6 +230,77 @@ class CharacterListPage extends StatelessWidget {
                           alignment: Alignment.bottomLeft,
                           child: Text(
                             'Ampassing',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context,
+                          '/characters/yesKing'); // Navigate to the stats page
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('lib/assets/yes_king.jpg'),
+                                  fit: BoxFit.cover)),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.deepPurple
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  stops: [0.1, 1])),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10.0),
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            'Yes King',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context,
+                          '/characters/turbulenceMan'); // Navigate to the stats page
+                    },
+                    child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage(
+                                      'lib/assets/turbulence_man.jpg'),
+                                  fit: BoxFit.cover)),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.deepPurple
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  stops: [0.1, 1])),
+                        ),
+                        Container(
+                          padding: EdgeInsets.all(10.0),
+                          alignment: Alignment.bottomLeft,
+                          child: Text(
+                            'Turbulence Man',
                             style: TextStyle(color: Colors.white),
                           ),
                         ),

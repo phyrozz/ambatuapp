@@ -1,12 +1,8 @@
 import 'package:ambatuapp/widgets/character_appbar.dart';
 import 'package:ambatuapp/widgets/character_header.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter/material.dart';
-import 'package:ambatuapp/widgets/appbar.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../widgets/sidebar.dart';
 
 class AnkamingPage extends StatefulWidget {
   const AnkamingPage({super.key});

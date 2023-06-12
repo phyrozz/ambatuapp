@@ -1,9 +1,6 @@
 import 'package:ambatuapp/widgets/character_appbar.dart';
-import 'package:ambatuapp/widgets/sidebar.dart';
+import 'package:ambatuapp/widgets/character_header.dart';
 import 'package:flutter/material.dart';
-import 'package:ambatuapp/widgets/appbar.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class AmpassingPage extends StatefulWidget {
   const AmpassingPage({super.key});
@@ -19,6 +16,31 @@ class _AmpassingPageState extends State<AmpassingPage> {
       body: CustomScrollView(
         slivers: [
           CustomCharacterAppBar(),
+          SliverPersistentHeader(
+              pinned: true,
+              delegate: CustomCharacterHeader(
+                  bgUrl: './lib/assets/ampassing.jpg', text: 'Ampassing')),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 200,
+                    ),
+                    Center(
+                      child: Text(
+                        'This page is under construction. Stay tuned!',
+                        style: TextStyle(
+                            fontSize: 20.0, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+          )
         ],
       ),
     );

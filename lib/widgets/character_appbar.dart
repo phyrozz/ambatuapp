@@ -11,7 +11,7 @@ class CustomCharacterAppBar extends StatelessWidget {
         onPressed: () {
           // Navigate back to the /characters page
           Navigator.pop(context);
-          Navigator.pushNamed(context, '/characters');
+          // Navigator.pushNamed(context, '/characters');
         },
       ),
       flexibleSpace: FlexibleSpaceBar(

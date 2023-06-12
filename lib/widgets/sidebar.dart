@@ -22,11 +22,15 @@ class Sidebar extends StatelessWidget {
                   ),
                   child: Text(
                     currentPage,
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                        color: Colors.white, fontWeight: FontWeight.bold),
                   ),
                 ),
                 ListTile(
-                  title: const Text('Home'),
+                  title: const Text(
+                    'Home',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
                     Navigator.pushNamed(
@@ -34,7 +38,10 @@ class Sidebar extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: const Text('Characters'),
+                  title: const Text(
+                    'Characters',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
                     Navigator.pushNamed(
@@ -42,7 +49,10 @@ class Sidebar extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: const Text('Soundboard'),
+                  title: const Text(
+                    'Soundboard',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
                     Navigator.pushNamed(
@@ -50,7 +60,10 @@ class Sidebar extends StatelessWidget {
                   },
                 ),
                 ListTile(
-                  title: const Text('Stats'),
+                  title: const Text(
+                    'Stats',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
                     Navigator.pushNamed(
@@ -63,18 +76,25 @@ class Sidebar extends StatelessWidget {
           ),
           Consumer<ThemeModel>(
             builder: (context, themeModel, _) {
-              return ListTile(
-                leading: const Icon(Icons.brightness_6),
-                title: const Text('Dark Mode'),
-                trailing: Switch(
-                  value: themeModel.isDarkMode,
-                  onChanged: (value) => themeModel.toggleDarkMode(),
+              return Container(
+                padding: EdgeInsets.all(10),
+                color: Theme.of(context).appBarTheme.backgroundColor,
+                child: ListTile(
+                  leading: const Icon(
+                    Icons.brightness_6,
+                    color: Colors.white,
+                  ),
+                  title: const Text(
+                    'Dark Mode',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  trailing: Switch(
+                    value: themeModel.isDarkMode,
+                    onChanged: (value) => themeModel.toggleDarkMode(),
+                  ),
                 ),
               );
             },
-          ),
-          const SizedBox(
-            height: 15.0,
           ),
         ],
       ),

@@ -28,16 +28,27 @@ class CustomCharacterHeader extends SliverPersistentHeaderDelegate {
           image: AssetImage(bgUrl),
           fit: BoxFit.cover,
         ),
-        Container(
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.2),
+        Opacity(
+          opacity: 1.0 - opacity, // Reverse the opacity
+          child: Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.25),
+                  Theme.of(context).primaryColor,
+                ],
+                stops: [0.5, 1.0],
+              ),
+            ),
           ),
         ),
         AnimatedOpacity(
           opacity: opacity,
           duration: Duration(milliseconds: 200),
           child: Container(
-            decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
+            decoration: BoxDecoration(color: Colors.black.withOpacity(0.65)),
           ),
         ),
         Container(
@@ -47,9 +58,10 @@ class CustomCharacterHeader extends SliverPersistentHeaderDelegate {
             text,
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: fontSize,
-                color: Colors.white),
+              fontWeight: FontWeight.w400,
+              fontSize: fontSize,
+              color: Colors.white,
+            ),
           ),
         ),
       ],

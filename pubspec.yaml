@@ -43,6 +43,7 @@ dependencies:
   youtube_player_flutter: ^8.1.2
   assets_audio_player: ^3.0.6
   provider: ^6.0.5
+  google_fonts: ^4.0.4
 
 dev_dependencies:
   flutter_test:

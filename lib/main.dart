@@ -5,11 +5,14 @@ import 'package:ambatuapp/pages/characters/bunda.dart';
 import 'package:ambatuapp/pages/characters/dreamy.dart';
 import 'package:ambatuapp/pages/characters/kakangku.dart';
 import 'package:ambatuapp/pages/characters/nissan.dart';
+import 'package:ambatuapp/pages/characters/turbulence_man.dart';
+import 'package:ambatuapp/pages/characters/yes_king.dart';
 import 'package:ambatuapp/pages/soundboard.dart';
 import 'package:flutter/material.dart';
 import 'pages/home.dart';
 import 'pages/stats.dart';
 import 'package:provider/provider.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(ChangeNotifierProvider(
@@ -37,6 +40,8 @@ class MyApp extends StatelessWidget {
             '/characters/kakangku': (context) => KakangkuPage(),
             '/characters/nissan': (context) => NissanPage(),
             '/characters/ampassing': (context) => AmpassingPage(),
+            '/characters/yesKing': (context) => YesKingPage(),
+            '/characters/turbulenceMan': (context) => TurbulenceManPage(),
             '/soundboard': (context) => SoundboardPage(),
             // Add routes for other pages in your app
           },
@@ -73,11 +78,26 @@ class ThemeModel extends ChangeNotifier {
       bodySmall: TextStyle(fontSize: 16.0),
       bodyMedium: TextStyle(fontSize: 18.0),
       bodyLarge: TextStyle(fontSize: 20.0),
-    ),
+      displaySmall: TextStyle(),
+      displayMedium: TextStyle(),
+      displayLarge: TextStyle(),
+      headlineSmall: TextStyle(),
+      headlineMedium: TextStyle(),
+      headlineLarge: TextStyle(),
+      titleSmall: TextStyle(),
+      titleMedium: TextStyle(),
+      titleLarge: TextStyle(),
+      labelSmall: TextStyle(),
+      labelMedium: TextStyle(),
+      labelLarge: TextStyle(),
+    ).merge(GoogleFonts.latoTextTheme()),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.deepPurple[300],
       ),
+    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: Colors.deepPurple,
     ),
     // ...
   );
@@ -91,15 +111,38 @@ class ThemeModel extends ChangeNotifier {
     ),
     canvasColor: Color.fromARGB(255, 31, 17, 73),
     textTheme: TextTheme(
-        bodySmall: TextStyle(fontSize: 16.0),
-        bodyMedium: TextStyle(fontSize: 18.0),
-        bodyLarge: TextStyle(fontSize: 20.0)),
+      bodySmall: TextStyle(fontSize: 16.0),
+      bodyMedium: TextStyle(fontSize: 18.0),
+      bodyLarge: TextStyle(fontSize: 20.0),
+      displaySmall: TextStyle(),
+      displayMedium: TextStyle(),
+      displayLarge: TextStyle(),
+      headlineSmall: TextStyle(),
+      headlineMedium: TextStyle(),
+      headlineLarge: TextStyle(),
+      titleSmall: TextStyle(),
+      titleMedium: TextStyle(),
+      titleLarge: TextStyle(),
+      labelSmall: TextStyle(),
+      labelMedium: TextStyle(),
+      labelLarge: TextStyle(),
+    ).merge(GoogleFonts.latoTextTheme()).apply(
+          displayColor: Colors.white,
+          bodyColor: Colors.white,
+        ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.deepPurple,
       ),
     ),
     cardColor: Colors.deepPurple[900],
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: Colors.deepPurple,
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStatePropertyAll(Colors.deepPurple),
+      trackColor: MaterialStatePropertyAll(Colors.deepPurple[100]),
+    ),
     // ...
   );
 }

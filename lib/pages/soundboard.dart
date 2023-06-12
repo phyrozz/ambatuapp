@@ -20,7 +20,7 @@ class SoundItem {
 
 class _SoundboardPageState extends State<SoundboardPage> {
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.newPlayer();
-  List<bool> isPlayingList = List.filled(18, false);
+  List<bool> isPlayingList = List.filled(20, false);
   int? currentIndex;
   List<SoundItem> soundItems = [
     SoundItem(name: 'Ambatukam', soundUrl: 'lib/assets/sounds/ambatukam.mp3'),
@@ -44,6 +44,10 @@ class _SoundboardPageState extends State<SoundboardPage> {
     SoundItem(
         name: 'Classical Music #2',
         soundUrl: 'lib/assets/sounds/classical_music_2.mp3'),
+    SoundItem(name: 'Ambatublou', soundUrl: 'lib/assets/sounds/ambatublou.mp3'),
+    SoundItem(
+        name: 'Ambatublou :(',
+        soundUrl: 'lib/assets/sounds/ambatublou_sad.mp3'),
     SoundItem(name: 'I want it', soundUrl: 'lib/assets/sounds/i_want_it.mp3'),
     SoundItem(name: 'Kakangku', soundUrl: 'lib/assets/sounds/kakangku.mp3'),
     SoundItem(name: 'Nissan', soundUrl: 'lib/assets/sounds/nissan.mp3'),

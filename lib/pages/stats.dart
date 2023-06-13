@@ -200,9 +200,27 @@ class _StatsPageState extends State<StatsPage> {
                       )
                   ],
                 )
-              : Center(
-                  child: Text(
-                      "Can't connect to the internet. Please check your connection."),
+              : Stack(
+                  children: const [
+                    CustomScrollView(
+                      slivers: [
+                        CustomAppBar(),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Center(
+                        child: Text(
+                          "Unable to load the page. Please check your Internet connection.",
+                          style: TextStyle(
+                            fontSize: 20.0,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
         ),
       ),

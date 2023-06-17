@@ -69,6 +69,7 @@ class ThemeModel extends ChangeNotifier {
     // Define your light mode theme data here
     brightness: Brightness.light,
     primaryColor: Colors.deepPurple[100],
+    primaryColorLight: Colors.deepPurple,
     primarySwatch: Colors.deepPurple,
     appBarTheme: AppBarTheme(
       backgroundColor: Colors.deepPurple,
@@ -96,6 +97,9 @@ class ThemeModel extends ChangeNotifier {
         backgroundColor: Colors.deepPurple[300],
       ),
     ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Colors.deepPurple[800],
+    ),
     progressIndicatorTheme: ProgressIndicatorThemeData(
       color: Colors.deepPurple,
     ),
@@ -106,6 +110,7 @@ class ThemeModel extends ChangeNotifier {
     // Define your dark mode theme data here
     brightness: Brightness.dark,
     primaryColor: Color.fromARGB(255, 31, 17, 73),
+    primaryColorLight: Colors.deepPurple[100],
     appBarTheme: AppBarTheme(
       backgroundColor: Color.fromARGB(255, 15, 8, 44),
     ),
@@ -138,6 +143,10 @@ class ThemeModel extends ChangeNotifier {
     cardColor: Colors.deepPurple[900],
     progressIndicatorTheme: ProgressIndicatorThemeData(
       color: Colors.deepPurple,
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Color.fromARGB(255, 15, 8, 44),
+      foregroundColor: Colors.white,
     ),
     switchTheme: SwitchThemeData(
       thumbColor: MaterialStatePropertyAll(Colors.deepPurple),

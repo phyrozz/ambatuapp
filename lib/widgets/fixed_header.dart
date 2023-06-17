@@ -9,23 +9,26 @@ class FixedHeaderDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final double fontSize = Tween<double>(begin: 28.0, end: 18.0)
+    final double fontSize = Tween<double>(begin: 28.0, end: 22.0)
         .transform(shrinkOffset / maxExtent); // Font size transition
-    final Alignment alignment = AlignmentTween(
-      begin: Alignment.center,
-      end: Alignment(-0.95, 0),
-    ).transform(shrinkOffset / maxExtent); // Alignment transition
+
+    final bool isScrolled = shrinkOffset > 0; // Check if the user has scrolled
 
     return Container(
-      alignment: alignment,
+      alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
+        border: isScrolled
+            ? Border(
+                bottom: BorderSide(
+                    width: 2.0, color: Theme.of(context).primaryColorLight))
+            : null, // Add border when scrolled
       ),
       child: Text(
         text,
         style: TextStyle(
           fontSize: fontSize,
-          fontWeight: FontWeight.bold,
+          fontWeight: FontWeight.w300,
         ),
       ),
     );
@@ -35,7 +38,7 @@ class FixedHeaderDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => 100.0; // Adjust the height of the fixed header
 
   @override
-  double get minExtent => 65.0; // Adjust the height of the fixed header
+  double get minExtent => 60.0; // Adjust the height of the fixed header
 
   @override
   bool shouldRebuild(FixedHeaderDelegate oldDelegate) {

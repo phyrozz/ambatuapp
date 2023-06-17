@@ -20,7 +20,7 @@ class SoundItem {
 
 class _SoundboardPageState extends State<SoundboardPage> {
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.newPlayer();
-  List<bool> isPlayingList = List.filled(20, false);
+  List<bool> isPlayingList = List.filled(26, false);
   int? currentIndex;
   List<SoundItem> soundItems = [
     SoundItem(name: 'Ambatukam', soundUrl: 'lib/assets/sounds/ambatukam.mp3'),
@@ -36,8 +36,19 @@ class _SoundboardPageState extends State<SoundboardPage> {
         soundUrl: 'lib/assets/sounds/ambatufakingnut.mp3'),
     SoundItem(name: 'Ambatunat', soundUrl: 'lib/assets/sounds/ambatunat.mp3'),
     SoundItem(
+        name: 'Ambatukam choir',
+        soundUrl: 'lib/assets/sounds/ambatukam_choir.mp3'),
+    SoundItem(
+        name: 'Ambatukam spongebob',
+        soundUrl: 'lib/assets/sounds/ambatukam_spongebob.mp3'),
+    SoundItem(
         name: 'Bunda Rahma', soundUrl: 'lib/assets/sounds/bunda_rahma.mp3'),
     SoundItem(name: 'Bus', soundUrl: 'lib/assets/sounds/bus.mp3'),
+    SoundItem(
+        name: 'Ambaturemix', soundUrl: 'lib/assets/sounds/ambaturemix.mp3'),
+    SoundItem(
+        name: 'Ambaturemix #2',
+        soundUrl: 'lib/assets/sounds/ambaturemix_2.mp3'),
     SoundItem(
         name: 'Classical Music',
         soundUrl: 'lib/assets/sounds/classical_music.mp3'),
@@ -51,11 +62,16 @@ class _SoundboardPageState extends State<SoundboardPage> {
     SoundItem(name: 'I want it', soundUrl: 'lib/assets/sounds/i_want_it.mp3'),
     SoundItem(name: 'Kakangku', soundUrl: 'lib/assets/sounds/kakangku.mp3'),
     SoundItem(name: 'Nissan', soundUrl: 'lib/assets/sounds/nissan.mp3'),
+    SoundItem(
+        name: 'Nissan (full)', soundUrl: 'lib/assets/sounds/nissan_full.mp3'),
     SoundItem(name: 'Omaygot', soundUrl: 'lib/assets/sounds/omaygot.mp3'),
     SoundItem(
         name: 'Possessed Dreamybull',
         soundUrl: 'lib/assets/sounds/possessed_dreamybull.mp3'),
     SoundItem(name: 'Ughh', soundUrl: 'lib/assets/sounds/ughh.mp3'),
+    SoundItem(
+        name: 'Stretch this ahh',
+        soundUrl: 'lib/assets/sounds/stretch_this_ahh.mp3'),
     SoundItem(name: 'Yes King', soundUrl: 'lib/assets/sounds/yes_king.mp3'),
   ];
 
@@ -130,7 +146,7 @@ class _SoundboardPageState extends State<SoundboardPage> {
                 child: Text(
                   soundItem.name,
                   style: TextStyle(
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                   ),
                   textAlign: TextAlign.center,
                 ),

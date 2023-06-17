@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:ambatuapp/widgets/page_load.dart';
+import 'package:ambatuapp/widgets/youtube_player.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../widgets/fixed_header.dart';
@@ -112,6 +113,35 @@ class _HomePageState extends State<HomePage> {
                   SliverPersistentHeader(
                     pinned: true,
                     delegate: FixedHeaderDelegate(
+                      text: 'Videos',
+                      child: Container(
+                        padding: EdgeInsets.all(5),
+                        alignment: Alignment.centerLeft,
+                        color: Color.fromARGB(255, 204, 187, 235),
+                      ),
+                    ),
+                  ),
+                  SliverList(
+                      delegate: SliverChildListDelegate([
+                    Container(
+                      child: YoutubePlayerWidget(videoId: 'eWLiMUwZTFI'),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      child: YoutubePlayerWidget(videoId: '2oLoRN5R2bM'),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Container(
+                      child: YoutubePlayerWidget(videoId: '4HB_IIqpdPI'),
+                    )
+                  ])),
+                  SliverPersistentHeader(
+                    pinned: true,
+                    delegate: FixedHeaderDelegate(
                       text: 'Recent Tweets',
                       child: Container(
                         padding: EdgeInsets.all(5),
@@ -220,6 +250,13 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
+    final double fontSize = Tween<double>(begin: 64.0, end: 40.0)
+        .transform(shrinkOffset / maxExtent); // Font size transition
+    final ColorTween colorTween = ColorTween(
+        begin: Theme.of(context).colorScheme.onSurfaceVariant, end: null);
+    final Color? swipeTextColor =
+        colorTween.transform(shrinkOffset / maxExtent);
+
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -252,7 +289,9 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
             "Let's get bussin'!",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontWeight: FontWeight.w100, fontSize: 64, color: Colors.white),
+                fontWeight: FontWeight.w100,
+                fontSize: fontSize,
+                color: Colors.white),
           ),
         ),
         Container(
@@ -264,12 +303,18 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
                 Text(
                   "Swipe down to see more",
                   textAlign: TextAlign.center,
-                  style: TextStyle(fontWeight: FontWeight.w300, fontSize: 14),
+                  style: TextStyle(
+                      fontWeight: FontWeight.w300,
+                      fontSize: 14,
+                      color: swipeTextColor),
                 ),
                 SizedBox(
                   width: 5.0,
                 ),
-                Icon(Icons.swipe_down),
+                Icon(
+                  Icons.swipe_down,
+                  color: swipeTextColor,
+                ),
               ]),
         ),
       ],

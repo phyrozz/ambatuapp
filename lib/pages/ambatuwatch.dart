@@ -1,31 +1,23 @@
-import 'dart:convert';
-import 'package:ambatuapp/widgets/page_load.dart';
-import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../widgets/fixed_header.dart';
-import '../widgets/sidebar.dart';
-import '../widgets/appbar.dart';
-import 'package:ambatuapp/twitter_account.dart';
-import 'package:http/http.dart' as http;
-import 'package:connectivity/connectivity.dart';
+import 'package:ambatuapp/widgets/appbar.dart';
+import 'package:ambatuapp/widgets/fixed_header.dart';
+import 'package:ambatuapp/widgets/sidebar.dart';
 import 'package:ambatuapp/yt_search_results.dart';
+import 'package:connectivity/connectivity.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class AmbatuWatchPage extends StatefulWidget {
+  const AmbatuWatchPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AmbatuWatchPage> createState() => _AmbatuWatchPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  String profileImageUrl = '';
+class _AmbatuWatchPageState extends State<AmbatuWatchPage> {
   bool isError = false;
-  bool isYTSearchResultListLoading = true;
-  bool isTweetListLoading = true;
+  bool isLoading = true;
   bool isConnected = true;
-  List<String> recentTweets = [];
-  List<String> recentTweetUrls = [];
-  List recentTweetIfRetweeted = [];
   List ytSearchResultUrls = [];
   List ytSearchResultTitles = [];
   List ytSearchResultThumbnails = [];
@@ -67,8 +59,7 @@ class _HomePageState extends State<HomePage> {
 
     try {
       setState(() {
-        isYTSearchResultListLoading = true;
-        isTweetListLoading = true;
+        isLoading = true;
       });
 
       final ytSearchResultListResponse =
@@ -107,42 +98,18 @@ class _HomePageState extends State<HomePage> {
           ytSearchResultNumberOfSubscribers =
               fetchedYTSearchResultNumberOfSubscribers;
           ytSearchResultVideoDurations = fetchedYTSearchResultVideoDuration;
-          isYTSearchResultListLoading = false;
+          isLoading = false;
         });
       } else {
         setState(() {
           isError = true;
-          isYTSearchResultListLoading = false;
-        });
-      }
-
-      final tweetListResponse = await http.get(Uri.parse(twitterApiUrl));
-      if (tweetListResponse.statusCode == 200) {
-        final data = json.decode(tweetListResponse.body);
-        final userData = data[0];
-        final twitterAccount = TwitterAccount.fromJson(userData);
-        final List<String> fetchedTweets = await fetchTweets();
-        final List<String> fetchedTweetUrls = await fetchTweetUrls();
-        final List fetchedTweetIfRetweeted = await fetchTweetIfRetweeted();
-
-        setState(() {
-          profileImageUrl = twitterAccount.profileImage;
-          recentTweets = fetchedTweets;
-          recentTweetUrls = fetchedTweetUrls;
-          recentTweetIfRetweeted = fetchedTweetIfRetweeted;
-          isTweetListLoading = false;
-        });
-      } else {
-        setState(() {
-          isError = true;
-          isTweetListLoading = false;
+          isLoading = false;
         });
       }
     } catch (e) {
       setState(() {
         isError = true;
-        isTweetListLoading = false;
-        isYTSearchResultListLoading = false;
+        isLoading = false;
       });
     }
   }
@@ -199,15 +166,9 @@ class _HomePageState extends State<HomePage> {
                 slivers: [
                   const CustomAppBar(),
                   SliverPersistentHeader(
-                    delegate: _HomePageHeader(
-                      bgUrl:
-                          'https://media.tenor.com/c3xvaQpdxZ8AAAAd/kkatmane.gif',
-                    ),
-                  ),
-                  SliverPersistentHeader(
                     pinned: true,
                     delegate: FixedHeaderDelegate(
-                      text: 'Videos',
+                      text: 'AmbatuWatch',
                       child: Container(
                         padding: const EdgeInsets.all(5),
                         alignment: Alignment.centerLeft,
@@ -216,7 +177,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   SliverList(
-                      delegate: isYTSearchResultListLoading
+                      delegate: isLoading
                           ? SliverChildListDelegate([
                               Container(
                                 height: 200,
@@ -303,8 +264,7 @@ class _HomePageState extends State<HomePage> {
                                                       ytSearchResultViewCounts[
                                                           index]) +
                                                   " views",
-                                              style: const TextStyle(
-                                                  fontSize: 14.0),
+                                              style: TextStyle(fontSize: 14.0),
                                             ),
                                             const SizedBox(
                                               width: 8,
@@ -323,111 +283,7 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               );
-                            },
-                              childCount: ytSearchResultTitles.length > 5
-                                  ? 5
-                                  : ytSearchResultTitles.length)),
-                  ytSearchResultTitles.length > 5
-                      ? SliverToBoxAdapter(
-                          child: Container(
-                            height: 50,
-                            child: Builder(
-                              builder: (context) => TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/ambatuwatch');
-                                },
-                                child: const Text('See More'),
-                              ),
-                            ),
-                          ),
-                        )
-                      : const SliverToBoxAdapter(),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: FixedHeaderDelegate(
-                      text: 'Recent Tweets',
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        alignment: Alignment.centerLeft,
-                        color: const Color.fromARGB(255, 204, 187, 235),
-                      ),
-                    ),
-                  ),
-                  SliverList(
-                      delegate: isTweetListLoading
-                          ? SliverChildListDelegate([
-                              Container(
-                                height: 200,
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      CircularProgressIndicator(),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text('Ambatuload...'),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ])
-                          : SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                              return Material(
-                                child: InkWell(
-                                  onTap: () =>
-                                      _launchUrl(recentTweetUrls[index]),
-                                  child: Card(
-                                    margin: const EdgeInsets.all(5),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.fromLTRB(
-                                              70, 7, 0, 0),
-                                          alignment: Alignment.centerLeft,
-                                        ),
-                                        ListTile(
-                                          contentPadding:
-                                              const EdgeInsets.fromLTRB(
-                                                  20, 0, 20, 10),
-                                          leading: ClipOval(
-                                            child: Image.network(
-                                              profileImageUrl,
-                                              fit: BoxFit.cover,
-                                              width: 50.0,
-                                              height: 90.0,
-                                            ),
-                                          ),
-                                          title: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                alignment: Alignment.centerLeft,
-                                                child: recentTweetIfRetweeted[
-                                                        index]
-                                                    ? const Text(
-                                                        '@dreamybullxxx Retweeted',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      )
-                                                    : null,
-                                              ),
-                                              const SizedBox(height: 5),
-                                              Text(recentTweets[index]),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }, childCount: recentTweets.length)),
-                  // Other slivers...
+                            }, childCount: ytSearchResultTitles.length)),
                 ],
               )
             : Stack(
@@ -454,112 +310,8 @@ class _HomePageState extends State<HomePage> {
               ),
       ),
       drawer: const Sidebar(
-        currentPage: 'Home',
+        currentPage: 'AmbatuWatch',
       ),
     );
   }
-}
-
-class _HomePageHeader extends SliverPersistentHeaderDelegate {
-  final String bgUrl;
-
-  _HomePageHeader({required this.bgUrl});
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    final double fontSize = Tween<double>(begin: 64.0, end: 40.0)
-        .transform(shrinkOffset / maxExtent); // Font size transition
-    final ColorTween colorTween = ColorTween(
-        begin: Theme.of(context).colorScheme.onSurfaceVariant, end: null);
-    final Color? swipeTextColor =
-        colorTween.transform(shrinkOffset / maxExtent);
-    final ColorTween headerColorTween =
-        ColorTween(begin: Colors.white, end: null);
-    final Color? headerTextColor =
-        headerColorTween.transform(shrinkOffset / maxExtent);
-
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        Image.network(
-          bgUrl,
-          fit: BoxFit.cover,
-          loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent? loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            }
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                    : null,
-              ),
-            );
-          },
-        ),
-        Container(
-          height: 350.0,
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-                  begin: FractionalOffset.topCenter,
-                  end: FractionalOffset.bottomCenter,
-                  colors: [
-                Colors.grey.withOpacity(0.0),
-                Theme.of(context).primaryColor,
-              ],
-                  stops: const [
-                0.5,
-                1.0
-              ])),
-        ),
-        Container(
-          padding: const EdgeInsets.all(15.0),
-          alignment: Alignment.center,
-          child: Text(
-            "Let's get bussin'!",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-                fontWeight: FontWeight.w100,
-                fontSize: 64,
-                color: headerTextColor),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.all(14),
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Text(
-                  "Swipe down to see more",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 14,
-                      color: swipeTextColor),
-                ),
-                const SizedBox(
-                  width: 5.0,
-                ),
-                Icon(
-                  Icons.swipe_down,
-                  color: swipeTextColor,
-                ),
-              ]),
-        ),
-      ],
-    );
-  }
-
-  @override
-  double get maxExtent => 400;
-
-  @override
-  double get minExtent => 0;
-
-  @override
-  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
 }

@@ -12,17 +12,27 @@ class FixedHeaderDelegate extends SliverPersistentHeaderDelegate {
     final double fontSize = Tween<double>(begin: 28.0, end: 22.0)
         .transform(shrinkOffset / maxExtent); // Font size transition
 
-    final bool isScrolled = shrinkOffset > 0; // Check if the user has scrolled
+    final bool isScrolled = shrinkOffset > 0;
 
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
-        border: isScrolled
-            ? Border(
-                bottom: BorderSide(
-                    width: 2.0, color: Theme.of(context).primaryColorLight))
-            : null, // Add border when scrolled
+        // border: isScrolled
+        //     ? Border(
+        //         bottom: BorderSide(
+        //             width: 1.0, color: Theme.of(context).primaryColor))
+        //     : null, // Add border when scrolled
+        boxShadow: [
+          isScrolled
+              ? BoxShadow(
+                  color: Theme.of(context).primaryColor.withOpacity(0.75),
+                  spreadRadius: 3,
+                  blurRadius: 5,
+                  offset: const Offset(0, 3), // horizontal, vertical offset
+                )
+              : const BoxShadow(),
+        ],
       ),
       child: Text(
         text,

@@ -115,6 +115,7 @@ class _SoundboardPageState extends State<SoundboardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawerEnableOpenDragGesture: true,
       body: CustomScrollView(slivers: [
         CustomAppBar(),
         SliverPersistentHeader(

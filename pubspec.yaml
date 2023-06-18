@@ -44,6 +44,7 @@ dependencies:
   assets_audio_player: ^3.0.6
   provider: ^6.0.5
   google_fonts: ^4.0.4
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

@@ -9,6 +9,7 @@ class CharacterListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawerEnableOpenDragGesture: true,
       body: Container(
         child: CustomScrollView(
           slivers: [

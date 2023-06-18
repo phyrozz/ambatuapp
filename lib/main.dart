@@ -1,3 +1,4 @@
+import 'package:ambatuapp/pages/ambatuwatch.dart';
 import 'package:ambatuapp/pages/characters.dart';
 import 'package:ambatuapp/pages/characters/ampassing.dart';
 import 'package:ambatuapp/pages/characters/ankaming.dart';
@@ -32,17 +33,18 @@ class MyApp extends StatelessWidget {
           initialRoute: '/',
           routes: {
             '/': (context) => const HomePage(),
-            '/stats': (context) => StatsPage(),
-            '/characters': (context) => CharacterListPage(),
+            '/stats': (context) => const StatsPage(),
+            '/characters': (context) => const CharacterListPage(),
             '/characters/dreamy': (context) => const DreamyPage(),
-            '/characters/ankaming': (context) => AnkamingPage(),
-            '/characters/bunda': (context) => BundaPage(),
-            '/characters/kakangku': (context) => KakangkuPage(),
-            '/characters/nissan': (context) => NissanPage(),
-            '/characters/ampassing': (context) => AmpassingPage(),
-            '/characters/yesKing': (context) => YesKingPage(),
-            '/characters/turbulenceMan': (context) => TurbulenceManPage(),
-            '/soundboard': (context) => SoundboardPage(),
+            '/characters/ankaming': (context) => const AnkamingPage(),
+            '/characters/bunda': (context) => const BundaPage(),
+            '/characters/kakangku': (context) => const KakangkuPage(),
+            '/characters/nissan': (context) => const NissanPage(),
+            '/characters/ampassing': (context) => const AmpassingPage(),
+            '/characters/yesKing': (context) => const YesKingPage(),
+            '/characters/turbulenceMan': (context) => const TurbulenceManPage(),
+            '/soundboard': (context) => const SoundboardPage(),
+            '/ambatuwatch': (context) => const AmbatuWatchPage(),
             // Add routes for other pages in your app
           },
         );
@@ -71,11 +73,11 @@ class ThemeModel extends ChangeNotifier {
     primaryColor: Colors.deepPurple[100],
     primaryColorLight: Colors.deepPurple,
     primarySwatch: Colors.deepPurple,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: Colors.deepPurple,
     ),
     canvasColor: Colors.deepPurple[100],
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       bodySmall: TextStyle(fontSize: 16.0),
       bodyMedium: TextStyle(fontSize: 18.0),
       bodyLarge: TextStyle(fontSize: 20.0),
@@ -100,7 +102,7 @@ class ThemeModel extends ChangeNotifier {
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: Colors.deepPurple[800],
     ),
-    progressIndicatorTheme: ProgressIndicatorThemeData(
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: Colors.deepPurple,
     ),
     // ...
@@ -109,13 +111,13 @@ class ThemeModel extends ChangeNotifier {
   final darkTheme = ThemeData(
     // Define your dark mode theme data here
     brightness: Brightness.dark,
-    primaryColor: Color.fromARGB(255, 31, 17, 73),
+    primaryColor: const Color.fromARGB(255, 31, 17, 73),
     primaryColorLight: Colors.deepPurple[100],
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: Color.fromARGB(255, 15, 8, 44),
     ),
-    canvasColor: Color.fromARGB(255, 31, 17, 73),
-    textTheme: TextTheme(
+    canvasColor: const Color.fromARGB(255, 31, 17, 73),
+    textTheme: const TextTheme(
       bodySmall: TextStyle(fontSize: 16.0),
       bodyMedium: TextStyle(fontSize: 18.0),
       bodyLarge: TextStyle(fontSize: 20.0),
@@ -141,16 +143,21 @@ class ThemeModel extends ChangeNotifier {
       ),
     ),
     cardColor: Colors.deepPurple[900],
-    progressIndicatorTheme: ProgressIndicatorThemeData(
+    progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: Colors.deepPurple,
     ),
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color.fromARGB(255, 15, 8, 44),
       foregroundColor: Colors.white,
     ),
     switchTheme: SwitchThemeData(
-      thumbColor: MaterialStatePropertyAll(Colors.deepPurple),
+      thumbColor: const MaterialStatePropertyAll(Colors.deepPurple),
       trackColor: MaterialStatePropertyAll(Colors.deepPurple[100]),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: MaterialStatePropertyAll(Colors.deepPurple[200]),
+      ),
     ),
     // ...
   );

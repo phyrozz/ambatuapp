@@ -103,6 +103,7 @@ class _StatsPageState extends State<StatsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawerEnableOpenDragGesture: true,
       body: RefreshIndicator(
         onRefresh: _refreshData,
         child: Center(
@@ -224,7 +225,7 @@ class _StatsPageState extends State<StatsPage> {
                 ),
         ),
       ),
-      drawer: const Sidebar(currentPage: 'Stats'),
+      drawer: const Sidebar(currentPage: 'MyDreamy'),
     );
   }
 }

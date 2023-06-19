@@ -19,7 +19,7 @@ class _AmpassingPageState extends State<AmpassingPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: './lib/assets/ampassing.jpg', text: 'Ampassing')),
+                  bgUrl: 'assets/ampassing.jpg', text: 'Ampassing')),
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(

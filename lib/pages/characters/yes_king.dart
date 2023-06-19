@@ -20,7 +20,7 @@ class _YesKingPageState extends State<YesKingPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: './lib/assets/yes_king_header.jpg', text: 'Yes King')),
+                  bgUrl: 'assets/yes_king_header.jpg', text: 'Yes King')),
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(

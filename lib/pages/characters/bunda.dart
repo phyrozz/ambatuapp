@@ -20,7 +20,7 @@ class _BundaPageState extends State<BundaPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: './lib/assets/bunda.jpg', text: 'Bunda Rahma')),
+                  bgUrl: 'assets/bunda.jpg', text: 'Bunda Rahma')),
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(

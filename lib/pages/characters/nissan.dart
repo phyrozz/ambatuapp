@@ -20,7 +20,7 @@ class _NissanPageState extends State<NissanPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: './lib/assets/nissan.jpg', text: 'Nissan')),
+                  bgUrl: 'assets/nissan.jpg', text: 'Nissan')),
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(

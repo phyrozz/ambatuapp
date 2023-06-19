@@ -20,8 +20,7 @@ class _TurbulenceManPageState extends State<TurbulenceManPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: './lib/assets/turbulence_man.jpg',
-                  text: 'Turbulence Man')),
+                  bgUrl: 'assets/turbulence_man.jpg', text: 'Turbulence Man')),
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(

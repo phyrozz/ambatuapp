@@ -45,6 +45,7 @@ dependencies:
   provider: ^6.0.5
   google_fonts: ^4.0.4
   intl: ^0.18.1
+  audioplayers: ^4.1.0
 
 dev_dependencies:
   flutter_test:
@@ -63,8 +64,8 @@ dev_dependencies:
 # The following section is specific to Flutter packages.
 flutter:
   assets:
-    - lib/assets/
-    - lib/assets/sounds/
+    - assets/
+    - assets/sounds/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

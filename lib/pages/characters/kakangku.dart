@@ -21,7 +21,7 @@ class _KakangkuPageState extends State<KakangkuPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: './lib/assets/kakangku.jpg', text: 'Kakangku')),
+                  bgUrl: 'assets/kakangku.jpg', text: 'Kakangku')),
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(

@@ -23,72 +23,67 @@ class _SoundboardPageState extends State<SoundboardPage> {
   List<bool> isPlayingList = List.filled(26, false);
   int? currentIndex;
   List<SoundItem> soundItems = [
-    SoundItem(name: 'Ambatukam', soundUrl: 'lib/assets/sounds/ambatukam.mp3'),
+    SoundItem(name: 'Ambatukam', soundUrl: 'assets/sounds/ambatukam.mp3'),
     SoundItem(
-        name: 'Ambatukaaaaam',
-        soundUrl: 'lib/assets/sounds/ambatukaaaaaam.mp3'),
-    SoundItem(name: 'Ambasing', soundUrl: 'lib/assets/sounds/ambasing.mp3'),
+        name: 'Ambatukaaaaam', soundUrl: 'assets/sounds/ambatukaaaaaam.mp3'),
+    SoundItem(name: 'Ambasing', soundUrl: 'assets/sounds/ambasing.mp3'),
     SoundItem(
         name: 'Ambasing (full version)',
-        soundUrl: 'lib/assets/sounds/ambasing_full.mp3'),
+        soundUrl: 'assets/sounds/ambasing_full.mp3'),
     SoundItem(
-        name: 'Ambatufakingnut',
-        soundUrl: 'lib/assets/sounds/ambatufakingnut.mp3'),
-    SoundItem(name: 'Ambatunat', soundUrl: 'lib/assets/sounds/ambatunat.mp3'),
+        name: 'Ambatufakingnut', soundUrl: 'assets/sounds/ambatufakingnut.mp3'),
+    SoundItem(name: 'Ambatunat', soundUrl: 'assets/sounds/ambatunat.mp3'),
     SoundItem(
-        name: 'Ambatukam choir',
-        soundUrl: 'lib/assets/sounds/ambatukam_choir.mp3'),
+        name: 'Ambatukam choir', soundUrl: 'assets/sounds/ambatukam_choir.mp3'),
     SoundItem(
         name: 'Ambatukam spongebob',
-        soundUrl: 'lib/assets/sounds/ambatukam_spongebob.mp3'),
+        soundUrl: 'assets/sounds/ambatukam_spongebob.mp3'),
+    SoundItem(name: 'Bunda Rahma', soundUrl: 'assets/sounds/bunda_rahma.mp3'),
+    SoundItem(name: 'Bus', soundUrl: 'assets/sounds/bus.mp3'),
+    SoundItem(name: 'Ambaturemix', soundUrl: 'assets/sounds/ambaturemix.mp3'),
     SoundItem(
-        name: 'Bunda Rahma', soundUrl: 'lib/assets/sounds/bunda_rahma.mp3'),
-    SoundItem(name: 'Bus', soundUrl: 'lib/assets/sounds/bus.mp3'),
+        name: 'Ambaturemix #2', soundUrl: 'assets/sounds/ambaturemix_2.mp3'),
     SoundItem(
-        name: 'Ambaturemix', soundUrl: 'lib/assets/sounds/ambaturemix.mp3'),
-    SoundItem(
-        name: 'Ambaturemix #2',
-        soundUrl: 'lib/assets/sounds/ambaturemix_2.mp3'),
-    SoundItem(
-        name: 'Classical Music',
-        soundUrl: 'lib/assets/sounds/classical_music.mp3'),
+        name: 'Classical Music', soundUrl: 'assets/sounds/classical_music.mp3'),
     SoundItem(
         name: 'Classical Music #2',
-        soundUrl: 'lib/assets/sounds/classical_music_2.mp3'),
-    SoundItem(name: 'Ambatublou', soundUrl: 'lib/assets/sounds/ambatublou.mp3'),
+        soundUrl: 'assets/sounds/classical_music_2.mp3'),
+    SoundItem(name: 'Ambatublou', soundUrl: 'assets/sounds/ambatublou.mp3'),
     SoundItem(
-        name: 'Ambatublou :(',
-        soundUrl: 'lib/assets/sounds/ambatublou_sad.mp3'),
-    SoundItem(name: 'I want it', soundUrl: 'lib/assets/sounds/i_want_it.mp3'),
-    SoundItem(name: 'Kakangku', soundUrl: 'lib/assets/sounds/kakangku.mp3'),
-    SoundItem(name: 'Nissan', soundUrl: 'lib/assets/sounds/nissan.mp3'),
-    SoundItem(
-        name: 'Nissan (full)', soundUrl: 'lib/assets/sounds/nissan_full.mp3'),
-    SoundItem(name: 'Omaygot', soundUrl: 'lib/assets/sounds/omaygot.mp3'),
+        name: 'Ambatublou :(', soundUrl: 'assets/sounds/ambatublou_sad.mp3'),
+    SoundItem(name: 'I want it', soundUrl: 'assets/sounds/i_want_it.mp3'),
+    SoundItem(name: 'Kakangku', soundUrl: 'assets/sounds/kakangku.mp3'),
+    SoundItem(name: 'Nissan', soundUrl: 'assets/sounds/nissan.mp3'),
+    SoundItem(name: 'Nissan (full)', soundUrl: 'assets/sounds/nissan_full.mp3'),
+    SoundItem(name: 'Omaygot', soundUrl: 'assets/sounds/omaygot.mp3'),
     SoundItem(
         name: 'Possessed Dreamybull',
-        soundUrl: 'lib/assets/sounds/possessed_dreamybull.mp3'),
-    SoundItem(name: 'Ughh', soundUrl: 'lib/assets/sounds/ughh.mp3'),
+        soundUrl: 'assets/sounds/possessed_dreamybull.mp3'),
+    SoundItem(name: 'Ughh', soundUrl: 'assets/sounds/ughh.mp3'),
     SoundItem(
         name: 'Stretch this ahh',
-        soundUrl: 'lib/assets/sounds/stretch_this_ahh.mp3'),
-    SoundItem(name: 'Yes King', soundUrl: 'lib/assets/sounds/yes_king.mp3'),
+        soundUrl: 'assets/sounds/stretch_this_ahh.mp3'),
+    SoundItem(name: 'Yes King', soundUrl: 'assets/sounds/yes_king.mp3'),
   ];
 
   void playSound(String soundUrl, int index) async {
     audioPlayer.open(
       Audio(soundUrl),
     );
-    setState(() {
-      currentIndex = index;
-    });
+    if (mounted) {
+      setState(() {
+        currentIndex = index;
+      });
+    }
   }
 
   void stopAllSounds() {
     audioPlayer.stop();
-    setState(() {
-      currentIndex = null;
-    });
+    if (mounted) {
+      setState(() {
+        currentIndex = null;
+      });
+    }
   }
 
   @override
@@ -97,9 +92,11 @@ class _SoundboardPageState extends State<SoundboardPage> {
     audioPlayer.playlistAudioFinished.listen(
       (playing) {
         if (currentIndex != null) {
-          setState(() {
-            currentIndex = null;
-          });
+          if (mounted) {
+            setState(() {
+              currentIndex = null;
+            });
+          }
         }
       },
       cancelOnError: false,
@@ -108,8 +105,8 @@ class _SoundboardPageState extends State<SoundboardPage> {
 
   @override
   void dispose() {
-    audioPlayer.dispose();
     super.dispose();
+    audioPlayer.dispose();
   }
 
   @override

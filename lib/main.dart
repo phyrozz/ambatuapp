@@ -1,3 +1,4 @@
+import 'package:ambatuapp/pages/ambatugame.dart';
 import 'package:ambatuapp/pages/ambatuwatch.dart';
 import 'package:ambatuapp/pages/characters.dart';
 import 'package:ambatuapp/pages/characters/ampassing.dart';
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
             '/characters/turbulenceMan': (context) => const TurbulenceManPage(),
             '/soundboard': (context) => const SoundboardPage(),
             '/ambatuwatch': (context) => const AmbatuWatchPage(),
+            '/ambatugame': (context) => const AmbatugamePage(),
             // Add routes for other pages in your app
           },
         );

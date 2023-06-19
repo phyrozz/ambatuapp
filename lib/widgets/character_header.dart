@@ -23,7 +23,7 @@ class CustomCharacterHeader extends SliverPersistentHeaderDelegate {
       fit: StackFit.expand,
       children: [
         FadeInImage(
-          placeholder: AssetImage('lib/assets/loading.gif'),
+          placeholder: AssetImage('assets/loading.gif'),
           placeholderFit: BoxFit.none,
           image: AssetImage(bgUrl),
           fit: BoxFit.cover,

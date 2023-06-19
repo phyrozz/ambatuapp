@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'AmbatuApp',
-          style: TextStyle(
+          style: GoogleFonts.lato(
               color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.bold),
         ),
       ),

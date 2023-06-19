@@ -29,7 +29,7 @@ class _AnkamingPageState extends State<AnkamingPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: './lib/assets/ankaming_header.jpg', text: 'Amkaming')),
+                  bgUrl: 'assets/ankaming_header.jpg', text: 'Amkaming')),
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(

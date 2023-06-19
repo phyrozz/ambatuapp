@@ -37,7 +37,7 @@ class CharacterListPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('lib/assets/dreamy.jpg'),
+                                  image: AssetImage('assets/dreamy.jpg'),
                                   fit: BoxFit.cover)),
                         ),
                         Container(
@@ -72,7 +72,7 @@ class CharacterListPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('lib/assets/ankaming.jpg'),
+                                  image: AssetImage('assets/ankaming.jpg'),
                                   fit: BoxFit.cover)),
                         ),
                         Container(
@@ -107,7 +107,7 @@ class CharacterListPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('lib/assets/bunda.jpg'),
+                                  image: AssetImage('assets/bunda.jpg'),
                                   fit: BoxFit.cover)),
                         ),
                         Container(
@@ -142,7 +142,7 @@ class CharacterListPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('lib/assets/kakangku.jpg'),
+                                  image: AssetImage('assets/kakangku.jpg'),
                                   fit: BoxFit.cover)),
                         ),
                         Container(
@@ -177,7 +177,7 @@ class CharacterListPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('lib/assets/nissan.jpg'),
+                                  image: AssetImage('assets/nissan.jpg'),
                                   fit: BoxFit.cover)),
                         ),
                         Container(
@@ -212,7 +212,7 @@ class CharacterListPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('lib/assets/ampassing.jpg'),
+                                  image: AssetImage('assets/ampassing.jpg'),
                                   fit: BoxFit.cover)),
                         ),
                         Container(
@@ -247,7 +247,7 @@ class CharacterListPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('lib/assets/yes_king.jpg'),
+                                  image: AssetImage('assets/yes_king.jpg'),
                                   fit: BoxFit.cover)),
                         ),
                         Container(
@@ -282,8 +282,8 @@ class CharacterListPage extends StatelessWidget {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(
-                                      'lib/assets/turbulence_man.jpg'),
+                                  image:
+                                      AssetImage('assets/turbulence_man.jpg'),
                                   fit: BoxFit.cover)),
                         ),
                         Container(

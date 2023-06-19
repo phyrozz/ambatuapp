@@ -36,7 +36,7 @@ class _DreamyPageState extends State<DreamyPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: './lib/assets/dreamybull_header.jpg',
+                  bgUrl: 'assets/dreamybull_header.jpg',
                   text: 'DreamybullXXX')),
           SliverList(
             delegate: SliverChildListDelegate([

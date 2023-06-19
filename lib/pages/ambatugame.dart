@@ -36,14 +36,26 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
     'assets/sounds/i_want_it.mp3',
     'assets/sounds/ambasing.mp3',
   ];
+  final List<AssetsAudioPlayer> activePlayers = [];
 
   Future<void> playTapSound() async {
+    if (activePlayers.length >= 10) {
+      return; // Limit reached, do not create more audio players
+    }
+
     final random = Random();
     final audioIndex = random.nextInt(audioFiles.length);
     final audioFilePath = audioFiles[audioIndex];
 
-    assetsAudioPlayer = AssetsAudioPlayer.newPlayer();
-    await assetsAudioPlayer.open(Audio(audioFilePath));
+    final player = AssetsAudioPlayer.newPlayer();
+    await player.open(Audio(audioFilePath));
+
+    activePlayers.add(player);
+    if (activePlayers.length == 10) {
+      activePlayers[0].stop();
+      activePlayers.removeAt(0);
+    }
+    print(activePlayers);
   }
 
   void updateScore() {
@@ -119,7 +131,7 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
                   text: TextSpan(
                     text: 'Score: ',
                     style: GoogleFonts.lato(
-                        fontSize: 30.0,
+                        fontSize: 24.0,
                         color: Theme.of(context).primaryColorLight),
                     children: [
                       TextSpan(
@@ -133,7 +145,7 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
                   text: TextSpan(
                     text: 'Taps: ',
                     style: GoogleFonts.lato(
-                        fontSize: 30.0,
+                        fontSize: 24.0,
                         color: Theme.of(context).primaryColorLight),
                     children: [
                       TextSpan(
@@ -221,7 +233,7 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
           ),
         ],
       ),
-      drawer: const Sidebar(currentPage: 'AmbatuClick'),
+      drawer: const Sidebar(currentPage: 'AmbatuTap'),
     );
   }
 }

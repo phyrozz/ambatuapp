@@ -19,9 +19,10 @@ class SoundItem {
 }
 
 class _SoundboardPageState extends State<SoundboardPage> {
-  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.newPlayer();
-  List<bool> isPlayingList = List.filled(26, false);
-  int? currentIndex;
+  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer();
+  List<bool> isPlayingList = List.filled(27,
+      false); // Don't forget to change the length of the list as more audios are added.
+  // int? currentIndex;
   List<SoundItem> soundItems = [
     SoundItem(name: 'Ambatukam', soundUrl: 'assets/sounds/ambatukam.mp3'),
     SoundItem(
@@ -38,6 +39,8 @@ class _SoundboardPageState extends State<SoundboardPage> {
     SoundItem(
         name: 'Ambatukam spongebob',
         soundUrl: 'assets/sounds/ambatukam_spongebob.mp3'),
+    SoundItem(
+        name: 'Ambatukam kita', soundUrl: 'assets/sounds/ambatukam_ikuyo.mp3'),
     SoundItem(name: 'Bunda Rahma', soundUrl: 'assets/sounds/bunda_rahma.mp3'),
     SoundItem(name: 'Bus', soundUrl: 'assets/sounds/bus.mp3'),
     SoundItem(name: 'Ambaturemix', soundUrl: 'assets/sounds/ambaturemix.mp3'),
@@ -65,23 +68,50 @@ class _SoundboardPageState extends State<SoundboardPage> {
         soundUrl: 'assets/sounds/stretch_this_ahh.mp3'),
     SoundItem(name: 'Yes King', soundUrl: 'assets/sounds/yes_king.mp3'),
   ];
+  final List<AssetsAudioPlayer> activePlayers = [];
+  List<int> playingIndices = [];
 
   void playSound(String soundUrl, int index) async {
-    audioPlayer.open(
-      Audio(soundUrl),
-    );
+    if (activePlayers.length >= 10) {
+      return; // Limit reached, do not create more audio players
+    }
+
+    final player = AssetsAudioPlayer.newPlayer();
+    player.open(Audio(soundUrl));
+
+    activePlayers.add(player);
+    if (activePlayers.length == 10) {
+      activePlayers[0].stop();
+      activePlayers.removeAt(0);
+    }
+
     if (mounted) {
       setState(() {
-        currentIndex = index;
+        // currentIndex = index;
+        playingIndices.add(index); // Add the index to playingIndices
       });
+    }
+
+    if (playingIndices.length == 10) {
+      if (mounted) {
+        setState(() {
+          // currentIndex = null;
+          playingIndices.removeAt(0); // Remove the index from playingIndices
+        });
+      }
     }
   }
 
   void stopAllSounds() {
+    for (final f in activePlayers) {
+      f.stop();
+    }
+    activePlayers.clear();
     audioPlayer.stop();
     if (mounted) {
       setState(() {
-        currentIndex = null;
+        playingIndices.clear();
+        // currentIndex = null;
       });
     }
   }
@@ -89,24 +119,26 @@ class _SoundboardPageState extends State<SoundboardPage> {
   @override
   void initState() {
     super.initState();
-    audioPlayer.playlistAudioFinished.listen(
-      (playing) {
-        if (currentIndex != null) {
-          if (mounted) {
-            setState(() {
-              currentIndex = null;
-            });
-          }
-        }
-      },
-      cancelOnError: false,
-    );
+    // audioPlayer.playlistAudioFinished.listen(
+    //   (playing) {
+    //     if (currentIndex != null) {
+    //       if (mounted) {
+    //         setState(() {
+    //           currentIndex = null;
+    //         });
+    //       }
+    //     }
+    //   },
+    //   cancelOnError: false,
+    // );
   }
 
   @override
   void dispose() {
     super.dispose();
-    audioPlayer.dispose();
+    for (final f in activePlayers) {
+      f.dispose();
+    }
   }
 
   @override
@@ -130,17 +162,14 @@ class _SoundboardPageState extends State<SoundboardPage> {
               final soundItem = soundItems[index];
               return ElevatedButton(
                 onPressed: () {
-                  if (currentIndex == index) {
-                    stopAllSounds();
-                  } else {
-                    playSound(soundItem.soundUrl, index);
-                  }
+                  playSound(soundItem.soundUrl, index);
+                  print(activePlayers);
+                  // if (currentIndex == index) {
+                  //   stopAllSounds();
+                  // } else {
+                  //   playSound(soundItem.soundUrl, index);
+                  // }
                 },
-                style: ElevatedButton.styleFrom(
-                  primary: currentIndex == index
-                      ? Theme.of(context).colorScheme.primary
-                      : Theme.of(context).colorScheme.primary.withOpacity(0.3),
-                ),
                 child: Text(
                   soundItem.name,
                   style: TextStyle(

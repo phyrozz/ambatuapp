@@ -2,8 +2,8 @@ import 'package:ambatuapp/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
-
 import 'package:google_fonts/google_fonts.dart';
+import 'package:assets_audio_player/assets_audio_player.dart';
 
 class AmbatuSnakePage extends StatefulWidget {
   const AmbatuSnakePage({super.key});
@@ -16,9 +16,20 @@ class _AmbatuSnakePageState extends State<AmbatuSnakePage> {
   final int numRows = 20;
   final int numColumns = 20;
   final int snakeSpeed = 200; // milliseconds
+  final gameOverSfx = AssetsAudioPlayer();
 
   List<int> snake = [];
   List<int> food = [];
+  List<AssetsAudioPlayer> activePlayers = [];
+  List<String> audioFiles = [
+    'assets/sounds/snake_food1.mp3',
+    'assets/sounds/snake_food2.mp3',
+    'assets/sounds/snake_food3.mp3',
+    'assets/sounds/snake_food4.mp3',
+    'assets/sounds/snake_food5.mp3',
+    'assets/sounds/snake_food6.mp3',
+    'assets/sounds/snake_food7.mp3',
+  ];
   Direction direction = Direction.right;
   GameStatus gameStatus = GameStatus.notStarted;
   Timer? timer;
@@ -26,7 +37,67 @@ class _AmbatuSnakePageState extends State<AmbatuSnakePage> {
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance?.addPostFrameCallback((_) {
+      showModalBottomSheet<void>(
+        context: context,
+        isDismissible: false,
+        enableDrag: false,
+        builder: (BuildContext context) {
+          return WillPopScope(
+            onWillPop: () async {
+              // Return 'true' to allow back button press to close the modal
+              // Return 'false' to override the back button behavior
+              return false;
+            },
+            child: Container(
+              height: 300,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    const Text(
+                      'AmbatuSnake',
+                      style: TextStyle(fontSize: 32.0),
+                    ),
+                    const SizedBox(
+                      height: 40.0,
+                    ),
+                    ElevatedButton(
+                      style: const ButtonStyle(
+                        padding: MaterialStatePropertyAll(
+                            EdgeInsets.fromLTRB(30, 15, 30, 15)),
+                      ),
+                      child: const Text('Start Game'),
+                      onPressed: () {
+                        Navigator.pop(context);
+                        startGame();
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    });
+  }
+
+  void startGame() {
     resetGame();
+
+    if (timer != null) {
+      timer!.cancel();
+    }
+    timer = Timer.periodic(Duration(milliseconds: snakeSpeed), (timer) {
+      moveSnake();
+    });
   }
 
   void resetGame() {
@@ -84,8 +155,51 @@ class _AmbatuSnakePageState extends State<AmbatuSnakePage> {
       if (snake.contains(nextCell) ||
           nextCell < 0 ||
           nextCell >= numRows * numColumns) {
+        gameOverSfx.open(Audio('assets/sounds/snake_game_over.mp3'));
+        gameOverSfx.play();
         gameStatus = GameStatus.gameOver;
         timer!.cancel();
+        showModalBottomSheet<void>(
+          context: context,
+          isDismissible: false,
+          enableDrag: false,
+          builder: (BuildContext context) {
+            return WillPopScope(
+              onWillPop: () async {
+                return false;
+              },
+              child: Container(
+                height: 300,
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      const Text(
+                        'Game Over!',
+                        style: TextStyle(fontSize: 32.0),
+                      ),
+                      const SizedBox(
+                        height: 40.0,
+                      ),
+                      ElevatedButton(
+                        style: const ButtonStyle(
+                          padding: MaterialStatePropertyAll(
+                              EdgeInsets.fromLTRB(30, 15, 30, 15)),
+                        ),
+                        child: const Text('Play Again'),
+                        onPressed: () {
+                          resetGame();
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          },
+        );
         return;
       }
 
@@ -93,6 +207,15 @@ class _AmbatuSnakePageState extends State<AmbatuSnakePage> {
 
       if (nextCell == food.first) {
         food = generateFood();
+
+        // Play a sound effect when the snake eats the food
+        final random = Random();
+        final audioIndex = random.nextInt(audioFiles.length);
+        final audioFilePath = audioFiles[audioIndex];
+        final player = AssetsAudioPlayer.newPlayer();
+        player.open(Audio(audioFilePath));
+        activePlayers.add(player);
+        player.play();
       } else {
         snake.removeAt(0);
       }
@@ -131,6 +254,10 @@ class _AmbatuSnakePageState extends State<AmbatuSnakePage> {
   @override
   void dispose() {
     timer?.cancel();
+    for (final f in activePlayers) {
+      f.dispose();
+    }
+    gameOverSfx.dispose();
     super.dispose();
   }
 
@@ -193,10 +320,6 @@ class _AmbatuSnakePageState extends State<AmbatuSnakePage> {
             ),
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: resetGame,
-        child: const Icon(Icons.refresh),
       ),
       drawer: const Sidebar(currentPage: 'AmbatuSnake'),
     );

@@ -200,9 +200,9 @@ class _HomePageState extends State<HomePage> {
                   const CustomAppBar(),
                   SliverPersistentHeader(
                     delegate: _HomePageHeader(
-                      bgUrl:
-                          'https://media.tenor.com/c3xvaQpdxZ8AAAAd/kkatmane.gif',
-                    ),
+                        // bgUrl:
+                        //     'https://media.tenor.com/c3xvaQpdxZ8AAAAd/kkatmane.gif',
+                        ),
                   ),
                   SliverPersistentHeader(
                     pinned: true,
@@ -461,9 +461,9 @@ class _HomePageState extends State<HomePage> {
 }
 
 class _HomePageHeader extends SliverPersistentHeaderDelegate {
-  final String bgUrl;
+  // final String bgUrl;
 
-  _HomePageHeader({required this.bgUrl});
+  // _HomePageHeader({required this.bgUrl});
 
   @override
   Widget build(
@@ -474,32 +474,37 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
         begin: Theme.of(context).colorScheme.onSurfaceVariant, end: null);
     final Color? swipeTextColor =
         colorTween.transform(shrinkOffset / maxExtent);
-    final ColorTween headerColorTween =
-        ColorTween(begin: Colors.white, end: null);
-    final Color? headerTextColor =
-        headerColorTween.transform(shrinkOffset / maxExtent);
 
     return Stack(
       fit: StackFit.expand,
       children: [
-        Image.network(
-          bgUrl,
+        const FadeInImage(
+          placeholder: AssetImage('assets/loading.gif'),
+          placeholderFit: BoxFit.none,
+          image: AssetImage('assets/home_header.jpg'),
           fit: BoxFit.cover,
-          loadingBuilder: (BuildContext context, Widget child,
-              ImageChunkEvent? loadingProgress) {
-            if (loadingProgress == null) {
-              return child;
-            }
-            return Center(
-              child: CircularProgressIndicator(
-                value: loadingProgress.expectedTotalBytes != null
-                    ? loadingProgress.cumulativeBytesLoaded /
-                        loadingProgress.expectedTotalBytes!
-                    : null,
-              ),
-            );
-          },
         ),
+        // Just uncomment this to revert to the default .gif header
+        // Don't forget to require the bgUrl again
+        //
+        // Image.network(
+        //   bgUrl,
+        //   fit: BoxFit.cover,
+        //   loadingBuilder: (BuildContext context, Widget child,
+        //       ImageChunkEvent? loadingProgress) {
+        //     if (loadingProgress == null) {
+        //       return child;
+        //     }
+        //     return Center(
+        //       child: CircularProgressIndicator(
+        //         value: loadingProgress.expectedTotalBytes != null
+        //             ? loadingProgress.cumulativeBytesLoaded /
+        //                 loadingProgress.expectedTotalBytes!
+        //             : null,
+        //       ),
+        //     );
+        //   },
+        // ),
         Container(
           height: 350.0,
           decoration: BoxDecoration(
@@ -518,13 +523,21 @@ class _HomePageHeader extends SliverPersistentHeaderDelegate {
         Container(
           padding: const EdgeInsets.all(15.0),
           alignment: Alignment.center,
-          child: Text(
+          child: const Text(
             "Let's get bussin'!",
             textAlign: TextAlign.center,
             style: TextStyle(
-                fontWeight: FontWeight.w100,
-                fontSize: 64,
-                color: headerTextColor),
+              fontWeight: FontWeight.w100,
+              fontSize: 64,
+              color: Colors.white,
+              shadows: [
+                Shadow(
+                  offset: Offset(2.0, 2.0),
+                  blurRadius: 20.0,
+                  color: Color.fromARGB(255, 0, 0, 0),
+                ),
+              ],
+            ),
           ),
         ),
         Container(

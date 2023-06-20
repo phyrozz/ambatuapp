@@ -196,7 +196,7 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
                     ),
                     onPressed: handleButtonTap,
                     child: const Text(
-                      'Tap me!',
+                      'Tap to 🚌!',
                       style: TextStyle(fontSize: 24.0),
                     ),
                   ),

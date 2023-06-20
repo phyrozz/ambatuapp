@@ -127,26 +127,26 @@ class Sidebar extends StatelessWidget {
                         context, '/ambatugame'); // Navigate to the stats page
                   },
                 ),
-                // ListTile(
-                //   contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
-                //   title: Row(
-                //     children: const [
-                //       Icon(Icons.games_outlined),
-                //       SizedBox(
-                //         width: 8.0,
-                //       ),
-                //       Text(
-                //         'AmbatuSnake',
-                //         style: TextStyle(fontWeight: FontWeight.bold),
-                //       ),
-                //     ],
-                //   ),
-                //   onTap: () {
-                //     Navigator.pop(context); // Close the drawer
-                //     Navigator.pushNamed(
-                //         context, '/ambatusnake'); // Navigate to the stats page
-                //   },
-                // ),
+                ListTile(
+                  contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
+                  title: Row(
+                    children: const [
+                      Icon(Icons.games_outlined),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Text(
+                        'AmbatuSnake',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                  onTap: () {
+                    Navigator.pop(context); // Close the drawer
+                    Navigator.pushNamed(
+                        context, '/ambatusnake'); // Navigate to the stats page
+                  },
+                ),
                 ListTile(
                   contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
                   title: Row(

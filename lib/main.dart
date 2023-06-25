@@ -5,21 +5,31 @@ import 'package:ambatuapp/pages/characters.dart';
 import 'package:ambatuapp/pages/characters/ampassing.dart';
 import 'package:ambatuapp/pages/characters/ankaming.dart';
 import 'package:ambatuapp/pages/characters/bunda.dart';
+import 'package:ambatuapp/pages/characters/daddy_amkaming.dart';
 import 'package:ambatuapp/pages/characters/dreamy.dart';
 import 'package:ambatuapp/pages/characters/kakangku.dart';
 import 'package:ambatuapp/pages/characters/nissan.dart';
 import 'package:ambatuapp/pages/characters/turbulence_man.dart';
+import 'package:ambatuapp/pages/characters/viktor.dart';
 import 'package:ambatuapp/pages/characters/yes_king.dart';
 import 'package:ambatuapp/pages/soundboard.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletons/skeletons.dart';
 import 'pages/home.dart';
 import 'pages/stats.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(ChangeNotifierProvider(
-      create: (_) => ThemeModel(), child: const MyApp()));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final themeModel = ThemeModel();
+  await themeModel.loadDarkModePreference();
+
+  runApp(ChangeNotifierProvider.value(
+    value: themeModel,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -29,28 +39,58 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Consumer<ThemeModel>(
       builder: (context, themeModel, _) {
-        return MaterialApp(
-          title: 'AmbatuApp',
-          theme: themeModel.getThemeData(),
-          initialRoute: '/',
-          routes: {
-            '/': (context) => const HomePage(),
-            '/stats': (context) => const StatsPage(),
-            '/characters': (context) => const CharacterListPage(),
-            '/characters/dreamy': (context) => const DreamyPage(),
-            '/characters/ankaming': (context) => const AnkamingPage(),
-            '/characters/bunda': (context) => const BundaPage(),
-            '/characters/kakangku': (context) => const KakangkuPage(),
-            '/characters/nissan': (context) => const NissanPage(),
-            '/characters/ampassing': (context) => const AmpassingPage(),
-            '/characters/yesKing': (context) => const YesKingPage(),
-            '/characters/turbulenceMan': (context) => const TurbulenceManPage(),
-            '/soundboard': (context) => const SoundboardPage(),
-            '/ambatuwatch': (context) => const AmbatuWatchPage(),
-            '/ambatugame': (context) => const AmbatugamePage(),
-            '/ambatusnake': (context) => const AmbatuSnakePage(),
-            // Add routes for other pages in your app
-          },
+        final isDarkMode = themeModel.isDarkMode;
+
+        return SkeletonTheme(
+          shimmerGradient: isDarkMode
+              ? themeModel.darkShimmerGradient
+              : themeModel.lightShimmerGradient,
+          darkShimmerGradient: const LinearGradient(
+            colors: [
+              Colors.deepPurple,
+              Color.fromARGB(255, 91, 51, 160),
+              Color.fromARGB(255, 79, 44, 139),
+              Color.fromARGB(255, 91, 51, 160),
+              Colors.deepPurple
+            ],
+            stops: [
+              0.0,
+              0.2,
+              0.5,
+              0.8,
+              1,
+            ],
+            begin: Alignment(-2.4, -0.2),
+            end: Alignment(2.4, 0.2),
+            tileMode: TileMode.clamp,
+          ),
+          child: MaterialApp(
+            title: 'AmbatuApp',
+            theme: themeModel.getThemeData(),
+            initialRoute: '/',
+            routes: {
+              '/': (context) => const HomePage(),
+              '/stats': (context) => const StatsPage(),
+              '/characters': (context) => const CharacterListPage(),
+              '/characters/dreamy': (context) => const DreamyPage(),
+              '/characters/ankaming': (context) => const AnkamingPage(),
+              '/characters/bunda': (context) => const BundaPage(),
+              '/characters/kakangku': (context) => const KakangkuPage(),
+              '/characters/nissan': (context) => const NissanPage(),
+              '/characters/ampassing': (context) => const AmpassingPage(),
+              '/characters/yesKing': (context) => const YesKingPage(),
+              '/characters/turbulenceMan': (context) =>
+                  const TurbulenceManPage(),
+              '/characters/daddyAmkaming': (context) =>
+                  const DaddyAmkamingPage(),
+              '/characters/viktor': (context) => const ViktorPage(),
+              '/soundboard': (context) => const SoundboardPage(),
+              '/ambatuwatch': (context) => const AmbatuWatchPage(),
+              '/ambatugame': (context) => const AmbatugamePage(),
+              '/ambatusnake': (context) => const AmbatuSnakePage(),
+              // Add routes for other pages in your app
+            },
+          ),
         );
       },
     );
@@ -62,9 +102,43 @@ class ThemeModel extends ChangeNotifier {
 
   bool get isDarkMode => _isDarkMode;
 
-  void toggleDarkMode() {
+  final lightShimmerGradient = const LinearGradient(
+    colors: [
+      Color.fromARGB(255, 179, 168, 199),
+      Color.fromARGB(255, 158, 148, 175),
+      Color.fromARGB(255, 179, 168, 199),
+    ],
+    stops: [
+      0.1,
+      0.5,
+      0.9,
+    ],
+  );
+
+  final darkShimmerGradient = const LinearGradient(
+    colors: [
+      Color.fromARGB(255, 52, 31, 107),
+      Color.fromARGB(255, 35, 21, 73),
+      Color.fromARGB(255, 52, 31, 107),
+    ],
+    stops: [
+      0.1,
+      0.5,
+      0.9,
+    ],
+  );
+
+  Future<void> loadDarkModePreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    _isDarkMode = prefs.getBool('isDarkMode') ?? false;
+    notifyListeners();
+  }
+
+  Future<void> toggleDarkMode() async {
     _isDarkMode = !_isDarkMode;
     notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setBool('isDarkMode', _isDarkMode);
   }
 
   ThemeData getThemeData() {

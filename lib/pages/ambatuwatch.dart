@@ -6,6 +6,7 @@ import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
+import 'package:skeletons/skeletons.dart';
 
 class AmbatuWatchPage extends StatefulWidget {
   const AmbatuWatchPage({super.key});
@@ -45,9 +46,11 @@ class _AmbatuWatchPageState extends State<AmbatuWatchPage> {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       // No internet connection
-      setState(() {
-        isConnected = false;
-      });
+      if (mounted) {
+        setState(() {
+          isConnected = false;
+        });
+      }
     }
   }
 
@@ -58,9 +61,11 @@ class _AmbatuWatchPageState extends State<AmbatuWatchPage> {
         'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq';
 
     try {
-      setState(() {
-        isLoading = true;
-      });
+      if (mounted) {
+        setState(() {
+          isLoading = true;
+        });
+      }
 
       final ytSearchResultListResponse =
           await http.get(Uri.parse(ytSearchResultApiUrl));
@@ -86,31 +91,37 @@ class _AmbatuWatchPageState extends State<AmbatuWatchPage> {
         final List fetchedYTSearchResultVideoDuration =
             await YTSearchResults.fetchYTSearchResultVideoDuration();
 
-        setState(() {
-          ytSearchResultUrls = fetchedYTSearchResultUrls;
-          ytSearchResultTitles = fetchedYTSearchResultTitles;
-          ytSearchResultThumbnails = fetchedYTSearchResultThumbnails;
-          ytSearchResultViewCounts = fetchedYTSearchResultViewCounts;
-          ytSearchResultUploadDates = fetchedYTSearchResultUploadDates;
-          ytSearchResultChannelNames = fetchedYTSearchResultChannelNames;
-          ytSearchResultChannelUrls = fetchedYTSearchResultChannelUrls;
-          ytSearchResultLikes = fetchedYTSearchResultLikes;
-          ytSearchResultNumberOfSubscribers =
-              fetchedYTSearchResultNumberOfSubscribers;
-          ytSearchResultVideoDurations = fetchedYTSearchResultVideoDuration;
-          isLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            ytSearchResultUrls = fetchedYTSearchResultUrls;
+            ytSearchResultTitles = fetchedYTSearchResultTitles;
+            ytSearchResultThumbnails = fetchedYTSearchResultThumbnails;
+            ytSearchResultViewCounts = fetchedYTSearchResultViewCounts;
+            ytSearchResultUploadDates = fetchedYTSearchResultUploadDates;
+            ytSearchResultChannelNames = fetchedYTSearchResultChannelNames;
+            ytSearchResultChannelUrls = fetchedYTSearchResultChannelUrls;
+            ytSearchResultLikes = fetchedYTSearchResultLikes;
+            ytSearchResultNumberOfSubscribers =
+                fetchedYTSearchResultNumberOfSubscribers;
+            ytSearchResultVideoDurations = fetchedYTSearchResultVideoDuration;
+            isLoading = false;
+          });
+        }
       } else {
+        if (mounted) {
+          setState(() {
+            isError = true;
+            isLoading = false;
+          });
+        }
+      }
+    } catch (e) {
+      if (mounted) {
         setState(() {
           isError = true;
           isLoading = false;
         });
       }
-    } catch (e) {
-      setState(() {
-        isError = true;
-        isLoading = false;
-      });
     }
   }
 
@@ -162,129 +173,174 @@ class _AmbatuWatchPageState extends State<AmbatuWatchPage> {
       body: RefreshIndicator(
         onRefresh: _refreshData,
         child: isConnected
-            ? CustomScrollView(
-                slivers: [
-                  const CustomAppBar(),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: FixedHeaderDelegate(
-                      text: 'AmbatuWatch',
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        alignment: Alignment.centerLeft,
-                        color: const Color.fromARGB(255, 204, 187, 235),
+            ? LayoutBuilder(
+                builder: (BuildContext context, BoxConstraints constraints) {
+                  return CustomScrollView(
+                    slivers: [
+                      const CustomAppBar(),
+                      SliverPersistentHeader(
+                        pinned: true,
+                        delegate: FixedHeaderDelegate(
+                          text: 'AmbatuWatch',
+                          child: Container(
+                            padding: const EdgeInsets.all(5),
+                            alignment: Alignment.centerLeft,
+                            color: const Color.fromARGB(255, 204, 187, 235),
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                  SliverList(
-                      delegate: isLoading
-                          ? SliverChildListDelegate([
-                              Container(
-                                height: 200,
-                                child: Center(
+                      isLoading
+                          ? SliverList(
+                              delegate:
+                                  SliverChildBuilderDelegate((context, index) {
+                              return Padding(
+                                padding: EdgeInsets.all(5.0),
+                                child: SkeletonItem(
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      CircularProgressIndicator(),
-                                      SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text('Ambatuload...'),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ])
-                          : SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                              return InkWell(
-                                onTap: () =>
-                                    _launchUrl(ytSearchResultUrls[index]),
-                                child: Card(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Container(
-                                        height: 250,
-                                        child: Image.network(
-                                          ytSearchResultThumbnails[index],
-                                          fit: BoxFit.cover,
-                                          loadingBuilder: (BuildContext context,
-                                              Widget child,
-                                              ImageChunkEvent?
-                                                  loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return Center(
-                                              child: CircularProgressIndicator(
-                                                value: loadingProgress
-                                                            .expectedTotalBytes !=
-                                                        null
-                                                    ? loadingProgress
-                                                            .cumulativeBytesLoaded /
-                                                        loadingProgress
-                                                            .expectedTotalBytes!
-                                                    : null,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.stretch,
+                                      children: [
+                                        Container(
+                                          height: 250.0,
+                                          child: SkeletonAvatar(),
+                                        ),
+                                        SizedBox(
+                                          height: 15.0,
+                                        ),
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 8.0),
+                                          child: Column(
+                                            children: [
+                                              SkeletonLine(
+                                                style: SkeletonLineStyle(
+                                                    height: 20),
                                               ),
-                                            );
-                                          },
+                                              SizedBox(
+                                                height: 10.0,
+                                              ),
+                                              SkeletonLine(
+                                                style: SkeletonLineStyle(
+                                                    height: 14,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            3),
+                                              ),
+                                              SizedBox(
+                                                height: 15.0,
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10,
-                                            right: 10,
-                                            top: 10,
-                                            bottom: 5),
-                                        child: Text(
-                                          ytSearchResultTitles[index],
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20.0),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, right: 10, bottom: 18),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              ytSearchResultChannelNames[index],
-                                              style: const TextStyle(
-                                                  fontSize: 14.0),
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(
-                                              _formatViews(
-                                                      ytSearchResultViewCounts[
-                                                          index]) +
-                                                  " views",
-                                              style: TextStyle(fontSize: 14.0),
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(
-                                              _getTimeAgo(
-                                                  ytSearchResultUploadDates[
-                                                      index]),
-                                              style: const TextStyle(
-                                                  fontSize: 14.0),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                      ]),
                                 ),
                               );
-                            }, childCount: ytSearchResultTitles.length)),
-                ],
+                            }, childCount: 10))
+                          : SliverList(
+                              delegate: SliverChildBuilderDelegate(
+                                (BuildContext context, int index) {
+                                  return InkWell(
+                                    onTap: () =>
+                                        _launchUrl(ytSearchResultUrls[index]),
+                                    child: Card(
+                                      clipBehavior: Clip.antiAlias,
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.stretch,
+                                        children: [
+                                          Container(
+                                            height: 250,
+                                            child: Image.network(
+                                              ytSearchResultThumbnails[index],
+                                              fit: BoxFit.cover,
+                                              loadingBuilder:
+                                                  (BuildContext context,
+                                                      Widget child,
+                                                      ImageChunkEvent?
+                                                          loadingProgress) {
+                                                if (loadingProgress == null) {
+                                                  return child;
+                                                }
+                                                return Center(
+                                                  child:
+                                                      CircularProgressIndicator(
+                                                    value: loadingProgress
+                                                                .expectedTotalBytes !=
+                                                            null
+                                                        ? loadingProgress
+                                                                .cumulativeBytesLoaded /
+                                                            loadingProgress
+                                                                .expectedTotalBytes!
+                                                        : null,
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10,
+                                                right: 10,
+                                                top: 10,
+                                                bottom: 5),
+                                            child: Text(
+                                              ytSearchResultTitles[index],
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 20.0,
+                                              ),
+                                              textAlign: TextAlign.left,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                left: 10,
+                                                right: 10,
+                                                bottom: 18),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  ytSearchResultChannelNames[
+                                                      index],
+                                                  style: const TextStyle(
+                                                    fontSize: 14.0,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  _formatViews(
+                                                          ytSearchResultViewCounts[
+                                                              index]) +
+                                                      " views",
+                                                  style: const TextStyle(
+                                                    fontSize: 14.0,
+                                                  ),
+                                                ),
+                                                const SizedBox(width: 8),
+                                                Text(
+                                                  _getTimeAgo(
+                                                      ytSearchResultUploadDates[
+                                                          index]),
+                                                  style: const TextStyle(
+                                                    fontSize: 14.0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                                childCount: ytSearchResultTitles.length,
+                              ),
+                            ),
+                    ],
+                  );
+                },
               )
             : Stack(
                 children: const [

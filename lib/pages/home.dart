@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ambatuapp/widgets/page_load.dart';
 import 'package:flutter/material.dart';
+import 'package:skeletons/skeletons.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../widgets/fixed_header.dart';
 import '../widgets/sidebar.dart';
@@ -53,9 +54,11 @@ class _HomePageState extends State<HomePage> {
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       // No internet connection
-      setState(() {
-        isConnected = false;
-      });
+      if (mounted) {
+        setState(() {
+          isConnected = false;
+        });
+      }
     }
   }
 
@@ -66,10 +69,12 @@ class _HomePageState extends State<HomePage> {
         'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq';
 
     try {
-      setState(() {
-        isYTSearchResultListLoading = true;
-        isTweetListLoading = true;
-      });
+      if (mounted) {
+        setState(() {
+          isYTSearchResultListLoading = true;
+          isTweetListLoading = true;
+        });
+      }
 
       final ytSearchResultListResponse =
           await http.get(Uri.parse(ytSearchResultApiUrl));
@@ -95,25 +100,29 @@ class _HomePageState extends State<HomePage> {
         final List fetchedYTSearchResultVideoDuration =
             await YTSearchResults.fetchYTSearchResultVideoDuration();
 
-        setState(() {
-          ytSearchResultUrls = fetchedYTSearchResultUrls;
-          ytSearchResultTitles = fetchedYTSearchResultTitles;
-          ytSearchResultThumbnails = fetchedYTSearchResultThumbnails;
-          ytSearchResultViewCounts = fetchedYTSearchResultViewCounts;
-          ytSearchResultUploadDates = fetchedYTSearchResultUploadDates;
-          ytSearchResultChannelNames = fetchedYTSearchResultChannelNames;
-          ytSearchResultChannelUrls = fetchedYTSearchResultChannelUrls;
-          ytSearchResultLikes = fetchedYTSearchResultLikes;
-          ytSearchResultNumberOfSubscribers =
-              fetchedYTSearchResultNumberOfSubscribers;
-          ytSearchResultVideoDurations = fetchedYTSearchResultVideoDuration;
-          isYTSearchResultListLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            ytSearchResultUrls = fetchedYTSearchResultUrls;
+            ytSearchResultTitles = fetchedYTSearchResultTitles;
+            ytSearchResultThumbnails = fetchedYTSearchResultThumbnails;
+            ytSearchResultViewCounts = fetchedYTSearchResultViewCounts;
+            ytSearchResultUploadDates = fetchedYTSearchResultUploadDates;
+            ytSearchResultChannelNames = fetchedYTSearchResultChannelNames;
+            ytSearchResultChannelUrls = fetchedYTSearchResultChannelUrls;
+            ytSearchResultLikes = fetchedYTSearchResultLikes;
+            ytSearchResultNumberOfSubscribers =
+                fetchedYTSearchResultNumberOfSubscribers;
+            ytSearchResultVideoDurations = fetchedYTSearchResultVideoDuration;
+            isYTSearchResultListLoading = false;
+          });
+        }
       } else {
-        setState(() {
-          isError = true;
-          isYTSearchResultListLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            isError = true;
+            isYTSearchResultListLoading = false;
+          });
+        }
       }
 
       final tweetListResponse = await http.get(Uri.parse(twitterApiUrl));
@@ -125,25 +134,31 @@ class _HomePageState extends State<HomePage> {
         final List<String> fetchedTweetUrls = await fetchTweetUrls();
         final List fetchedTweetIfRetweeted = await fetchTweetIfRetweeted();
 
-        setState(() {
-          profileImageUrl = twitterAccount.profileImage;
-          recentTweets = fetchedTweets;
-          recentTweetUrls = fetchedTweetUrls;
-          recentTweetIfRetweeted = fetchedTweetIfRetweeted;
-          isTweetListLoading = false;
-        });
+        if (mounted) {
+          setState(() {
+            profileImageUrl = twitterAccount.profileImage;
+            recentTweets = fetchedTweets;
+            recentTweetUrls = fetchedTweetUrls;
+            recentTweetIfRetweeted = fetchedTweetIfRetweeted;
+            isTweetListLoading = false;
+          });
+        }
       } else {
+        if (mounted) {
+          setState(() {
+            isError = true;
+            isTweetListLoading = false;
+          });
+        }
+      }
+    } catch (e) {
+      if (mounted) {
         setState(() {
           isError = true;
           isTweetListLoading = false;
+          isYTSearchResultListLoading = false;
         });
       }
-    } catch (e) {
-      setState(() {
-        isError = true;
-        isTweetListLoading = false;
-        isYTSearchResultListLoading = false;
-      });
     }
   }
 
@@ -215,115 +230,141 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SliverList(
-                      delegate: isYTSearchResultListLoading
-                          ? SliverChildListDelegate([
-                              Container(
-                                height: 200,
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      CircularProgressIndicator(),
-                                      SizedBox(
-                                        height: 5,
+                  isYTSearchResultListLoading
+                      ? SliverList(
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                          return Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: SkeletonItem(
+                              child: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Container(
+                                      height: 250.0,
+                                      child: SkeletonAvatar(),
+                                    ),
+                                    SizedBox(
+                                      height: 15.0,
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8.0),
+                                      child: Column(
+                                        children: [
+                                          SkeletonLine(
+                                            style:
+                                                SkeletonLineStyle(height: 20),
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          SkeletonLine(
+                                            style: SkeletonLineStyle(
+                                                height: 14,
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width /
+                                                    3),
+                                          ),
+                                          SizedBox(
+                                            height: 15.0,
+                                          ),
+                                        ],
                                       ),
-                                      Text('Ambatuload...'),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ])
-                          : SliverChildBuilderDelegate(
+                                    ),
+                                  ]),
+                            ),
+                          );
+                        }, childCount: 5))
+                      : SliverList(
+                          delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
-                              return InkWell(
-                                onTap: () =>
-                                    _launchUrl(ytSearchResultUrls[index]),
-                                child: Card(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    children: [
-                                      Container(
-                                        height: 250,
-                                        child: Image.network(
-                                          ytSearchResultThumbnails[index],
-                                          fit: BoxFit.cover,
-                                          loadingBuilder: (BuildContext context,
-                                              Widget child,
-                                              ImageChunkEvent?
-                                                  loadingProgress) {
-                                            if (loadingProgress == null) {
-                                              return child;
-                                            }
-                                            return Center(
-                                              child: CircularProgressIndicator(
-                                                value: loadingProgress
-                                                            .expectedTotalBytes !=
-                                                        null
-                                                    ? loadingProgress
-                                                            .cumulativeBytesLoaded /
-                                                        loadingProgress
-                                                            .expectedTotalBytes!
-                                                    : null,
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10,
-                                            right: 10,
-                                            top: 10,
-                                            bottom: 5),
-                                        child: Text(
-                                          ytSearchResultTitles[index],
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 20.0),
-                                          textAlign: TextAlign.left,
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            left: 10, right: 10, bottom: 18),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              ytSearchResultChannelNames[index],
-                                              style: const TextStyle(
-                                                  fontSize: 14.0),
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(
-                                              _formatViews(
-                                                      ytSearchResultViewCounts[
-                                                          index]) +
-                                                  " views",
-                                              style: const TextStyle(
-                                                  fontSize: 14.0),
-                                            ),
-                                            const SizedBox(
-                                              width: 8,
-                                            ),
-                                            Text(
-                                              _getTimeAgo(
-                                                  ytSearchResultUploadDates[
-                                                      index]),
-                                              style: const TextStyle(
-                                                  fontSize: 14.0),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                          return InkWell(
+                            onTap: () => _launchUrl(ytSearchResultUrls[index]),
+                            child: Card(
+                              clipBehavior: Clip.antiAlias,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Container(
+                                    height: 250,
+                                    child: Image.network(
+                                      ytSearchResultThumbnails[index],
+                                      fit: BoxFit.cover,
+                                      loadingBuilder: (BuildContext context,
+                                          Widget child,
+                                          ImageChunkEvent? loadingProgress) {
+                                        if (loadingProgress == null) {
+                                          return child;
+                                        }
+                                        return Center(
+                                          child: CircularProgressIndicator(
+                                            value: loadingProgress
+                                                        .expectedTotalBytes !=
+                                                    null
+                                                ? loadingProgress
+                                                        .cumulativeBytesLoaded /
+                                                    loadingProgress
+                                                        .expectedTotalBytes!
+                                                : null,
+                                          ),
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                              );
-                            },
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10,
+                                        right: 10,
+                                        top: 10,
+                                        bottom: 5),
+                                    child: Text(
+                                      ytSearchResultTitles[index],
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 20.0),
+                                      textAlign: TextAlign.left,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 18),
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          ytSearchResultChannelNames[index],
+                                          style:
+                                              const TextStyle(fontSize: 14.0),
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          _formatViews(ytSearchResultViewCounts[
+                                                  index]) +
+                                              " views",
+                                          style:
+                                              const TextStyle(fontSize: 14.0),
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          _getTimeAgo(
+                                              ytSearchResultUploadDates[index]),
+                                          style:
+                                              const TextStyle(fontSize: 14.0),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
                               childCount: ytSearchResultTitles.length > 5
                                   ? 5
                                   : ytSearchResultTitles.length)),
@@ -353,81 +394,83 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                   ),
-                  SliverList(
-                      delegate: isTweetListLoading
-                          ? SliverChildListDelegate([
-                              Container(
-                                height: 200,
-                                child: Center(
+                  isTweetListLoading
+                      ? SliverList(
+                          delegate:
+                              SliverChildBuilderDelegate((context, index) {
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 5.0, vertical: 15.0),
+                            child: SkeletonItem(
+                              child: ListTile(
+                                leading: SkeletonAvatar(
+                                  style: SkeletonAvatarStyle(
+                                      shape: BoxShape.circle,
+                                      width: 50,
+                                      height: 50),
+                                ),
+                                title: SkeletonLine(),
+                              ),
+                            ),
+                          );
+                        }, childCount: 10))
+                      : SliverList(
+                          delegate: SliverChildBuilderDelegate(
+                              (BuildContext context, int index) {
+                            return Material(
+                              child: InkWell(
+                                onTap: () => _launchUrl(recentTweetUrls[index]),
+                                child: Card(
+                                  margin: const EdgeInsets.all(5),
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const [
-                                      CircularProgressIndicator(),
-                                      SizedBox(
-                                        height: 5,
+                                    children: [
+                                      Container(
+                                        margin: const EdgeInsets.fromLTRB(
+                                            70, 7, 0, 0),
+                                        alignment: Alignment.centerLeft,
                                       ),
-                                      Text('Ambatuload...'),
+                                      ListTile(
+                                        contentPadding:
+                                            const EdgeInsets.fromLTRB(
+                                                20, 0, 20, 10),
+                                        leading: ClipOval(
+                                          child: Image.network(
+                                            profileImageUrl,
+                                            fit: BoxFit.cover,
+                                            width: 50.0,
+                                            height: 90.0,
+                                          ),
+                                        ),
+                                        title: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Container(
+                                              alignment: Alignment.centerLeft,
+                                              child:
+                                                  recentTweetIfRetweeted[index]
+                                                      ? const Text(
+                                                          '@dreamybullxxx Retweeted',
+                                                          style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                          ),
+                                                        )
+                                                      : null,
+                                            ),
+                                            const SizedBox(height: 5),
+                                            Text(recentTweets[index]),
+                                          ],
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ),
                               ),
-                            ])
-                          : SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                              return Material(
-                                child: InkWell(
-                                  onTap: () =>
-                                      _launchUrl(recentTweetUrls[index]),
-                                  child: Card(
-                                    margin: const EdgeInsets.all(5),
-                                    child: Column(
-                                      children: [
-                                        Container(
-                                          margin: const EdgeInsets.fromLTRB(
-                                              70, 7, 0, 0),
-                                          alignment: Alignment.centerLeft,
-                                        ),
-                                        ListTile(
-                                          contentPadding:
-                                              const EdgeInsets.fromLTRB(
-                                                  20, 0, 20, 10),
-                                          leading: ClipOval(
-                                            child: Image.network(
-                                              profileImageUrl,
-                                              fit: BoxFit.cover,
-                                              width: 50.0,
-                                              height: 90.0,
-                                            ),
-                                          ),
-                                          title: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                alignment: Alignment.centerLeft,
-                                                child: recentTweetIfRetweeted[
-                                                        index]
-                                                    ? const Text(
-                                                        '@dreamybullxxx Retweeted',
-                                                        style: TextStyle(
-                                                          fontWeight:
-                                                              FontWeight.w700,
-                                                        ),
-                                                      )
-                                                    : null,
-                                              ),
-                                              const SizedBox(height: 5),
-                                              Text(recentTweets[index]),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }, childCount: recentTweets.length)),
-                  // Other slivers...
+                            );
+                          }, childCount: recentTweets.length),
+                          // Other slivers...
+                        ),
                 ],
               )
             : Stack(

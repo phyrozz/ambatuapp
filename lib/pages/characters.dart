@@ -13,15 +13,15 @@ class CharacterListPage extends StatelessWidget {
       body: Container(
         child: CustomScrollView(
           slivers: [
-            CustomAppBar(),
+            const CustomAppBar(),
             SliverPersistentHeader(
               pinned: true,
               delegate: FixedHeaderDelegate(
                 text: 'Characters',
                 child: Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   alignment: Alignment.centerLeft,
-                  color: Color.fromARGB(255, 204, 187, 235),
+                  color: const Color.fromARGB(255, 204, 187, 235),
                 ),
               ),
             ),
@@ -29,290 +29,309 @@ class CharacterListPage extends StatelessWidget {
                 delegate: SliverChildListDelegate([
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context,
-                          '/characters/dreamy'); // Navigate to the stats page
+                      Navigator.pushNamed(context, '/characters/dreamy');
                     },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/dreamy.jpg'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.deepPurple
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.1, 1])),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'DreamybullXXX',
-                            style: TextStyle(color: Colors.white),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/dreamy.jpg',
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'DreamybullXXX',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context,
-                          '/characters/ankaming'); // Navigate to the stats page
+                      Navigator.pushNamed(context, '/characters/ankaming');
                     },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/ankaming.jpg'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.deepPurple
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.1, 1])),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Amkaming',
-                            style: TextStyle(color: Colors.white),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/ankaming.jpg',
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'Amkaming',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context,
-                          '/characters/bunda'); // Navigate to the stats page
+                      Navigator.pushNamed(context, '/characters/daddyAmkaming');
                     },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/bunda.jpg'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.deepPurple
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.1, 1])),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Bunda Rahma',
-                            style: TextStyle(color: Colors.white),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/daddy_amkaming.jpg',
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'Daddy Amkaming',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context,
-                          '/characters/kakangku'); // Navigate to the stats page
+                      Navigator.pushNamed(context, '/characters/viktor');
                     },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/kakangku.jpg'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.deepPurple
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.1, 1])),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Kakangku',
-                            style: TextStyle(color: Colors.white),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/viktor.jpg',
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'Viktor',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context,
-                          '/characters/nissan'); // Navigate to the stats page
+                      Navigator.pushNamed(context, '/characters/bunda');
                     },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/nissan.jpg'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.deepPurple
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.1, 1])),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Nissan',
-                            style: TextStyle(color: Colors.white),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/bunda.jpg',
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'Bunda Rahma',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context,
-                          '/characters/ampassing'); // Navigate to the stats page
+                      Navigator.pushNamed(context, '/characters/kakangku');
                     },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/ampassing.jpg'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.deepPurple
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.1, 1])),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Ampassing',
-                            style: TextStyle(color: Colors.white),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/kakangku.jpg',
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'Kakangku',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context,
-                          '/characters/yesKing'); // Navigate to the stats page
+                      Navigator.pushNamed(context, '/characters/nissan');
                     },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage('assets/yes_king.jpg'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.deepPurple
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.1, 1])),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Yes King',
-                            style: TextStyle(color: Colors.white),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/nissan.jpg',
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'Nissan',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context,
-                          '/characters/turbulenceMan'); // Navigate to the stats page
+                      Navigator.pushNamed(context, '/characters/ampassing');
                     },
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:
-                                      AssetImage('assets/turbulence_man.jpg'),
-                                  fit: BoxFit.cover)),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.deepPurple
-                                  ],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  stops: [0.1, 1])),
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10.0),
-                          alignment: Alignment.bottomLeft,
-                          child: Text(
-                            'Turbulence Man',
-                            style: TextStyle(color: Colors.white),
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/ampassing.jpg',
+                            fit: BoxFit.cover,
                           ),
-                        ),
-                      ],
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'Ampassing',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/characters/yesKing');
+                    },
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/yes_king.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'Yes King',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/characters/turbulenceMan');
+                    },
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/turbulence_man.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: Color.fromARGB(117, 0, 0, 0),
+                            child: Text(
+                              'Turbulence Man',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ]),
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                     maxCrossAxisExtent: 200.0,
-                    mainAxisSpacing: 10.0,
-                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 0.0,
+                    crossAxisSpacing: 0.0,
                     childAspectRatio: 1.0)),
           ],
         ),

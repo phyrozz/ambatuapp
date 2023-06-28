@@ -37,56 +37,7 @@ class _AmbatuSnakePageState extends State<AmbatuSnakePage> {
   @override
   void initState() {
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance?.addPostFrameCallback((_) {
-      showModalBottomSheet<void>(
-        context: context,
-        isDismissible: false,
-        enableDrag: false,
-        builder: (BuildContext context) {
-          return WillPopScope(
-            onWillPop: () async {
-              // Return 'true' to allow back button press to close the modal
-              // Return 'false' to override the back button behavior
-              return false;
-            },
-            child: Container(
-              height: 300,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    const Text(
-                      'AmbatuSnake',
-                      style: TextStyle(fontSize: 32.0),
-                    ),
-                    const SizedBox(
-                      height: 40.0,
-                    ),
-                    ElevatedButton(
-                      style: const ButtonStyle(
-                        padding: MaterialStatePropertyAll(
-                            EdgeInsets.fromLTRB(30, 15, 30, 15)),
-                      ),
-                      child: const Text('Start Game'),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        startGame();
-                      },
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          );
-        },
-      );
-    });
+    startGame();
   }
 
   void startGame() {

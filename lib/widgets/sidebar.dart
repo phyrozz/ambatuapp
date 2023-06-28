@@ -111,12 +111,12 @@ class Sidebar extends StatelessWidget {
                   contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
                   title: Row(
                     children: const [
-                      Icon(Icons.touch_app_outlined),
+                      Icon(Icons.gamepad_outlined),
                       SizedBox(
                         width: 8.0,
                       ),
                       Text(
-                        'AmbatuTap',
+                        'AmbatuGames',
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ],
@@ -124,27 +124,7 @@ class Sidebar extends StatelessWidget {
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
                     Navigator.pushNamed(
-                        context, '/ambatugame'); // Navigate to the stats page
-                  },
-                ),
-                ListTile(
-                  contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
-                  title: Row(
-                    children: const [
-                      Icon(Icons.games_outlined),
-                      SizedBox(
-                        width: 8.0,
-                      ),
-                      Text(
-                        'AmbatuSnake',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    Navigator.pop(context); // Close the drawer
-                    Navigator.pushNamed(
-                        context, '/ambatusnake'); // Navigate to the stats page
+                        context, '/ambatugames'); // Navigate to the stats page
                   },
                 ),
                 ListTile(

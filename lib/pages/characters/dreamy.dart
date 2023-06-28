@@ -32,7 +32,7 @@ class _DreamyPageState extends State<DreamyPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          CustomCharacterAppBar(),
+          const CustomCharacterAppBar(),
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
@@ -46,14 +46,14 @@ class _DreamyPageState extends State<DreamyPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton.icon(
-                        style: ButtonStyle(
+                        style: const ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(Colors.lightBlue)),
                         onPressed: () =>
                             _launchUrl('https://www.twitter.com/dreamybullxxx'),
-                        icon: Icon(FeatherIcons.twitter),
-                        label: Text('Check Profile')),
-                    SizedBox(
+                        icon: const Icon(FeatherIcons.twitter),
+                        label: const Text('Check Profile')),
+                    const SizedBox(
                       width: 8,
                     ),
                     ElevatedButton.icon(
@@ -62,13 +62,13 @@ class _DreamyPageState extends State<DreamyPage> {
                           Navigator.pushNamed(
                               context, '/stats'); // Navigate to the stats page
                         },
-                        icon: Icon(Icons.trending_up),
-                        label: Text('Check Stats'))
+                        icon: const Icon(FeatherIcons.twitter),
+                        label: const Text('MyDreamy'))
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: [
                     Container(
@@ -83,28 +83,28 @@ class _DreamyPageState extends State<DreamyPage> {
                         textAlign: TextAlign.center,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 20.0,
                     ),
-                    Text(
+                    const Text(
                       r"Perrell Brown, more known by his online name DreamybullXXX, is an internet personality, most notable for his workout videos on Twitter.",
                       style: TextStyle(
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
-                    Text(
+                    const Text(
                       "DreamybullXXX was born on April 20, 1989 in Barangay Ambasing, Sagada, Philippines. His Japanese parents migrated to the Philippines in 1981 during the insurgency of Badublou on their hometown that began right after the kamikaze death of his grandfather, Amuba Tokamu.",
                       style: TextStyle(
                         fontSize: 18,
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10.0,
                     ),
-                    Text(
+                    const Text(
                       r'His workout career on Twitter began to blow up after the success of his promotional campaign in early 2021, showing his entire body to many of his twitter followers doing the so-called "Bussing Challenge". This led to more engagement on his Twitter account and pushing him to pursue his bodybuilding career even more.',
                       style: TextStyle(
                         fontSize: 18,

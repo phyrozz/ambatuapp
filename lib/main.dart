@@ -1,5 +1,8 @@
-import 'package:ambatuapp/pages/ambatugame.dart';
-import 'package:ambatuapp/pages/ambatusnake.dart';
+import 'package:ambatuapp/pages/ambatugames.dart';
+import 'package:ambatuapp/pages/games/ambatublou.dart';
+import 'package:ambatuapp/pages/games/ambatublou_select_difficulty.dart';
+import 'package:ambatuapp/pages/games/ambatugame.dart';
+import 'package:ambatuapp/pages/games/ambatusnake.dart';
 import 'package:ambatuapp/pages/ambatuwatch.dart';
 import 'package:ambatuapp/pages/characters.dart';
 import 'package:ambatuapp/pages/characters/ampassing.dart';
@@ -13,6 +16,7 @@ import 'package:ambatuapp/pages/characters/turbulence_man.dart';
 import 'package:ambatuapp/pages/characters/viktor.dart';
 import 'package:ambatuapp/pages/characters/yes_king.dart';
 import 'package:ambatuapp/pages/soundboard.dart';
+import 'package:ambatuapp/pages/start_game.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletons/skeletons.dart';
 import 'pages/home.dart';
@@ -86,8 +90,19 @@ class MyApp extends StatelessWidget {
               '/characters/viktor': (context) => const ViktorPage(),
               '/soundboard': (context) => const SoundboardPage(),
               '/ambatuwatch': (context) => const AmbatuWatchPage(),
-              '/ambatugame': (context) => const AmbatugamePage(),
-              '/ambatusnake': (context) => const AmbatuSnakePage(),
+              '/ambatugames': (context) => const AmbatuGamesPage(),
+              '/games/ambatugame': (context) => const StartGamePage(
+                  title: 'AmbatuTap',
+                  description: 'A Tap Game',
+                  navigateTo: AmbatugamePage()),
+              '/games/ambatusnake': (context) => const StartGamePage(
+                  title: 'AmbatuSnake',
+                  description: 'A Snake Game',
+                  navigateTo: AmbatuSnakePage()),
+              '/games/ambatublou': (context) => const StartGamePage(
+                  title: 'Ambatublou',
+                  description: 'A Minesweeper Game',
+                  navigateTo: AmbatublouSelectDifficulty()),
               // Add routes for other pages in your app
             },
           ),
@@ -150,6 +165,7 @@ class ThemeModel extends ChangeNotifier {
     brightness: Brightness.light,
     primaryColor: Colors.deepPurple[100],
     primaryColorLight: Colors.deepPurple,
+    primaryColorDark: Colors.deepPurple[200],
     primarySwatch: Colors.deepPurple,
     appBarTheme: const AppBarTheme(
       backgroundColor: Colors.deepPurple,
@@ -191,6 +207,7 @@ class ThemeModel extends ChangeNotifier {
     brightness: Brightness.dark,
     primaryColor: const Color.fromARGB(255, 31, 17, 73),
     primaryColorLight: Colors.deepPurple[100],
+    primaryColorDark: Colors.deepPurple[900],
     appBarTheme: const AppBarTheme(
       backgroundColor: Color.fromARGB(255, 15, 8, 44),
     ),

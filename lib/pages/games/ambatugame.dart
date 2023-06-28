@@ -101,6 +101,9 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
   @override
   void dispose() {
     super.dispose();
+    for (final f in activePlayers) {
+      f.dispose();
+    }
     assetsAudioPlayer.stop();
     comboTimer?.cancel();
   }

@@ -25,7 +25,7 @@ class _AnkamingPageState extends State<AnkamingPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          CustomCharacterAppBar(),
+          const CustomCharacterAppBar(),
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
@@ -38,28 +38,28 @@ class _AnkamingPageState extends State<AnkamingPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton.icon(
-                        style: ButtonStyle(
+                        style: const ButtonStyle(
                             backgroundColor:
                                 MaterialStatePropertyAll(Colors.lightBlue)),
                         onPressed: () =>
                             _launchUrl('https://twitter.com/inndigold'),
-                        icon: Icon(FeatherIcons.twitter),
-                        label: Text('Check Profile')),
-                    SizedBox(
+                        icon: const Icon(FeatherIcons.twitter),
+                        label: const Text('Check Profile')),
+                    const SizedBox(
                       width: 8,
                     ),
                     ElevatedButton.icon(
                         onPressed: () =>
                             _launchUrl('https://allmylinks.com/realeshamae'),
-                        icon: Icon(Icons.person_2),
-                        label: Text('Other Socials'))
+                        icon: const Icon(Icons.person_2),
+                        label: const Text('Other Socials'))
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
-                  children: [
+                  children: const [
                     Text(
                       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec molestie magna a lectus lobortis, quis porttitor nibh lacinia. Curabitur tincidunt turpis luctus magna tincidunt cursus eu congue lorem. Nullam ut dictum arcu, at faucibus quam. Vivamus lacinia tellus ac urna malesuada consequat. Cras venenatis mauris non tristique malesuada. Nam et ultrices mi. Nulla molestie quam ac nisi scelerisque, eu rutrum sem euismod. Proin non nisi tellus. Mauris vehicula commodo leo non congue. Praesent et aliquet augue, sit amet dapibus justo.",
                     ),

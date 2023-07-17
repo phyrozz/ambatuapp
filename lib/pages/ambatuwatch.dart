@@ -194,7 +194,7 @@ class _AmbatuWatchPageState extends State<AmbatuWatchPage> {
                               delegate:
                                   SliverChildBuilderDelegate((context, index) {
                               return Padding(
-                                padding: EdgeInsets.all(5.0),
+                                padding: const EdgeInsets.all(5.0),
                                 child: SkeletonItem(
                                   child: Column(
                                       crossAxisAlignment:
@@ -202,21 +202,21 @@ class _AmbatuWatchPageState extends State<AmbatuWatchPage> {
                                       children: [
                                         Container(
                                           height: 250.0,
-                                          child: SkeletonAvatar(),
+                                          child: const SkeletonAvatar(),
                                         ),
-                                        SizedBox(
+                                        const SizedBox(
                                           height: 15.0,
                                         ),
                                         Padding(
-                                          padding: EdgeInsets.symmetric(
+                                          padding: const EdgeInsets.symmetric(
                                               horizontal: 8.0),
                                           child: Column(
                                             children: [
-                                              SkeletonLine(
+                                              const SkeletonLine(
                                                 style: SkeletonLineStyle(
                                                     height: 20),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 10.0,
                                               ),
                                               SkeletonLine(
@@ -228,7 +228,7 @@ class _AmbatuWatchPageState extends State<AmbatuWatchPage> {
                                                                 .width /
                                                             3),
                                               ),
-                                              SizedBox(
+                                              const SizedBox(
                                                 height: 15.0,
                                               ),
                                             ],

@@ -22,7 +22,6 @@ class _HomePageState extends State<HomePage> {
   String profileImageUrl = '';
   bool isError = false;
   bool isYTSearchResultListLoading = true;
-  bool isTweetListLoading = true;
   bool isConnected = true;
   List<String> recentTweets = [];
   List<String> recentTweetUrls = [];
@@ -63,8 +62,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> fetchUserData() async {
-    const String twitterApiUrl =
-        'https://api.apify.com/v2/acts/quacker~twitter-url-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq';
     const String ytSearchResultApiUrl =
         'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq';
 
@@ -72,7 +69,6 @@ class _HomePageState extends State<HomePage> {
       if (mounted) {
         setState(() {
           isYTSearchResultListLoading = true;
-          isTweetListLoading = true;
         });
       }
 
@@ -124,38 +120,10 @@ class _HomePageState extends State<HomePage> {
           });
         }
       }
-
-      final tweetListResponse = await http.get(Uri.parse(twitterApiUrl));
-      if (tweetListResponse.statusCode == 200) {
-        final data = json.decode(tweetListResponse.body);
-        final userData = data[0];
-        final twitterAccount = TwitterAccount.fromJson(userData);
-        final List<String> fetchedTweets = await fetchTweets();
-        final List<String> fetchedTweetUrls = await fetchTweetUrls();
-        final List fetchedTweetIfRetweeted = await fetchTweetIfRetweeted();
-
-        if (mounted) {
-          setState(() {
-            profileImageUrl = twitterAccount.profileImage;
-            recentTweets = fetchedTweets;
-            recentTweetUrls = fetchedTweetUrls;
-            recentTweetIfRetweeted = fetchedTweetIfRetweeted;
-            isTweetListLoading = false;
-          });
-        }
-      } else {
-        if (mounted) {
-          setState(() {
-            isError = true;
-            isTweetListLoading = false;
-          });
-        }
-      }
     } catch (e) {
       if (mounted) {
         setState(() {
           isError = true;
-          isTweetListLoading = false;
           isYTSearchResultListLoading = false;
         });
       }
@@ -383,94 +351,6 @@ class _HomePageState extends State<HomePage> {
                           ),
                         )
                       : const SliverToBoxAdapter(),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: FixedHeaderDelegate(
-                      text: 'Recent Tweets',
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        alignment: Alignment.centerLeft,
-                        color: const Color.fromARGB(255, 204, 187, 235),
-                      ),
-                    ),
-                  ),
-                  isTweetListLoading
-                      ? SliverList(
-                          delegate:
-                              SliverChildBuilderDelegate((context, index) {
-                          return const Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 5.0, vertical: 15.0),
-                            child: SkeletonItem(
-                              child: ListTile(
-                                leading: SkeletonAvatar(
-                                  style: SkeletonAvatarStyle(
-                                      shape: BoxShape.circle,
-                                      width: 50,
-                                      height: 50),
-                                ),
-                                title: SkeletonLine(),
-                              ),
-                            ),
-                          );
-                        }, childCount: 10))
-                      : SliverList(
-                          delegate: SliverChildBuilderDelegate(
-                              (BuildContext context, int index) {
-                            return Material(
-                              child: InkWell(
-                                onTap: () => _launchUrl(recentTweetUrls[index]),
-                                child: Card(
-                                  margin: const EdgeInsets.all(5),
-                                  child: Column(
-                                    children: [
-                                      Container(
-                                        margin: const EdgeInsets.fromLTRB(
-                                            70, 7, 0, 0),
-                                        alignment: Alignment.centerLeft,
-                                      ),
-                                      ListTile(
-                                        contentPadding:
-                                            const EdgeInsets.fromLTRB(
-                                                20, 0, 20, 10),
-                                        leading: ClipOval(
-                                          child: Image.network(
-                                            profileImageUrl,
-                                            fit: BoxFit.cover,
-                                            width: 50.0,
-                                            height: 90.0,
-                                          ),
-                                        ),
-                                        title: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.centerLeft,
-                                              child:
-                                                  recentTweetIfRetweeted[index]
-                                                      ? const Text(
-                                                          '@dreamybullxxx Retweeted',
-                                                          style: TextStyle(
-                                                            fontWeight:
-                                                                FontWeight.w700,
-                                                          ),
-                                                        )
-                                                      : null,
-                                            ),
-                                            const SizedBox(height: 5),
-                                            Text(recentTweets[index]),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          }, childCount: recentTweets.length),
-                          // Other slivers...
-                        ),
                 ],
               )
             : Stack(

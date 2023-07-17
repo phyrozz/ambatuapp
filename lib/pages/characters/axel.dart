@@ -1,17 +1,16 @@
 import 'package:ambatuapp/widgets/character_appbar.dart';
 import 'package:ambatuapp/widgets/character_header.dart';
 import 'package:flutter/material.dart';
-
 import '../../widgets/sidebar.dart';
 
-class KakangkuPage extends StatefulWidget {
-  const KakangkuPage({super.key});
+class AxelPage extends StatefulWidget {
+  const AxelPage({super.key});
 
   @override
-  State<KakangkuPage> createState() => _KakangkuPageState();
+  State<AxelPage> createState() => _AxelPageState();
 }
 
-class _KakangkuPageState extends State<KakangkuPage> {
+class _AxelPageState extends State<AxelPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +20,7 @@ class _KakangkuPageState extends State<KakangkuPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: 'assets/kakangku.jpg', text: 'Kakangku')),
+                  bgUrl: 'assets/axel_header.jpg', text: 'Axel')),
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(

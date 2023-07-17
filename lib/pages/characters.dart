@@ -43,8 +43,8 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'DreamybullXXX',
                               style: TextStyle(
                                 color: Colors.white,
@@ -73,8 +73,8 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'Amkaming',
                               style: TextStyle(
                                 color: Colors.white,
@@ -103,8 +103,8 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'Daddy Amkaming',
                               style: TextStyle(
                                 color: Colors.white,
@@ -133,8 +133,8 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'Viktor',
                               style: TextStyle(
                                 color: Colors.white,
@@ -163,8 +163,8 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'Bunda Rahma',
                               style: TextStyle(
                                 color: Colors.white,
@@ -193,8 +193,8 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'Kakangku',
                               style: TextStyle(
                                 color: Colors.white,
@@ -223,8 +223,8 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'Nissan',
                               style: TextStyle(
                                 color: Colors.white,
@@ -253,8 +253,8 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'Ampassing',
                               style: TextStyle(
                                 color: Colors.white,
@@ -283,8 +283,8 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'Yes King',
                               style: TextStyle(
                                 color: Colors.white,
@@ -313,9 +313,69 @@ class CharacterListPage extends StatelessWidget {
                           Container(
                             alignment: Alignment.bottomCenter,
                             padding: const EdgeInsets.all(8.0),
-                            color: Color.fromARGB(117, 0, 0, 0),
-                            child: Text(
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
                               'Turbulence Man',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/characters/axel');
+                    },
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/axel.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
+                              'Axel',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/characters/busSoldier');
+                    },
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/bus_soldier.png',
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
+                              'Bus Soldier',
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 14.0,

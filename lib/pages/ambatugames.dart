@@ -116,6 +116,36 @@ class AmbatuGamesPage extends StatelessWidget {
                     ),
                   ),
                 ),
+                InkWell(
+                  onTap: () {
+                    Navigator.pushNamed(context, '/games/flappyBus');
+                  },
+                  child: Card(
+                    clipBehavior: Clip.antiAlias,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      children: [
+                        Image.asset(
+                          'assets/flappy_bus.png',
+                          fit: BoxFit.cover,
+                        ),
+                        Container(
+                          alignment: Alignment.bottomCenter,
+                          padding: const EdgeInsets.all(8.0),
+                          color: const Color.fromARGB(75, 0, 0, 0),
+                          child: const Text(
+                            'Flappy Bus',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
               ]),
               gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                   maxCrossAxisExtent: 200.0,

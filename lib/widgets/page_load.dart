@@ -14,7 +14,7 @@ class _CustomProgessIndicatorState extends State<CustomProgessIndicator> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+        children: const [
           CircularProgressIndicator(),
           SizedBox(height: 12.0),
           Text(

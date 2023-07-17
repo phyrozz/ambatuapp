@@ -110,7 +110,7 @@ class _StatsPageState extends State<StatsPage> {
           child: isConnected
               ? CustomScrollView(
                   slivers: [
-                    CustomAppBar(),
+                    const CustomAppBar(),
                     SliverPersistentHeader(
                       delegate: _ProfileHeader(
                           profileImageUrl: profileImageUrl,
@@ -118,7 +118,7 @@ class _StatsPageState extends State<StatsPage> {
                       pinned: true,
                     ),
                     if (isLoading)
-                      SliverFillRemaining(
+                      const SliverFillRemaining(
                         child: CustomProgessIndicator(),
                       ),
                     SliverList(
@@ -128,7 +128,7 @@ class _StatsPageState extends State<StatsPage> {
                             name,
                             textScaleFactor: 1.4,
                             textAlign: TextAlign.center,
-                            style: TextStyle(fontWeight: FontWeight.w600),
+                            style: const TextStyle(fontWeight: FontWeight.w600),
                           ),
                           subtitle: Text(
                             '@$handle',
@@ -146,24 +146,26 @@ class _StatsPageState extends State<StatsPage> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text('Followers: '),
+                            const Text('Followers: '),
                             Text(
                               '$followers',
-                              style: TextStyle(fontWeight: FontWeight.w800),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w800),
                             ),
                             const SizedBox(width: 16),
-                            Text('Following: '),
+                            const Text('Following: '),
                             Text(
                               '$following',
-                              style: TextStyle(fontWeight: FontWeight.w800),
+                              style:
+                                  const TextStyle(fontWeight: FontWeight.w800),
                             ),
                           ],
                         ),
-                        SizedBox(height: 12.0),
+                        const SizedBox(height: 12.0),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.location_pin),
+                            const Icon(Icons.location_pin),
                             Text('$location')
                           ],
                         ),
@@ -173,14 +175,14 @@ class _StatsPageState extends State<StatsPage> {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               ElevatedButton.icon(
-                                  style: ButtonStyle(
+                                  style: const ButtonStyle(
                                       backgroundColor: MaterialStatePropertyAll(
                                           Colors.lightBlue)),
                                   onPressed: () => _launchUrl(
                                       'https://www.twitter.com/dreamybullxxx'),
-                                  icon: Icon(Icons.exit_to_app),
+                                  icon: const Icon(Icons.exit_to_app),
                                   label: const Text('Open on Twitter')),
-                              SizedBox(
+                              const SizedBox(
                                 height: 5.0,
                               ),
                               ElevatedButton(
@@ -194,9 +196,15 @@ class _StatsPageState extends State<StatsPage> {
                     ),
                     if (isError)
                       const SliverFillRemaining(
-                        child: Text(
-                          'Failed to retrieve information. Please try again later.',
-                          style: TextStyle(fontSize: 16),
+                        child: Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: Text(
+                              'Failed to retrieve information from Twitter. Please try again later... or contact Elon Musk.',
+                              style: TextStyle(fontSize: 16),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
                         ),
                       )
                   ],
@@ -263,13 +271,13 @@ class _ProfileHeader extends SliverPersistentHeaderDelegate {
                 Colors.grey.withOpacity(0.0),
                 Theme.of(context).primaryColor,
               ],
-                  stops: [
+                  stops: const [
                 0.0,
                 1.0
               ])),
         ),
         Container(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15.0),
           alignment: Alignment.bottomCenter,
           child: CircleAvatar(
             backgroundColor: Colors.deepPurple,

@@ -16,7 +16,7 @@ class _ViktorPageState extends State<ViktorPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          CustomCharacterAppBar(),
+          const CustomCharacterAppBar(),
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
@@ -24,9 +24,9 @@ class _ViktorPageState extends State<ViktorPage> {
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
-                  children: [
+                  children: const [
                     SizedBox(
                       height: 200,
                     ),
@@ -44,7 +44,7 @@ class _ViktorPageState extends State<ViktorPage> {
           )
         ],
       ),
-      drawer: Sidebar(currentPage: 'Characters'),
+      drawer: const Sidebar(currentPage: 'Characters'),
     );
   }
 }

@@ -127,26 +127,26 @@ class Sidebar extends StatelessWidget {
                         context, '/ambatugames'); // Navigate to the stats page
                   },
                 ),
-                ListTile(
-                  contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
-                  title: Row(
-                    children: const [
-                      Icon(FeatherIcons.twitter),
-                      SizedBox(
-                        width: 8.0,
-                      ),
-                      Text(
-                        'MyDreamy',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  onTap: () {
-                    Navigator.pop(context); // Close the drawer
-                    Navigator.pushNamed(
-                        context, '/stats'); // Navigate to the stats page
-                  },
-                ),
+                // ListTile(
+                //   contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
+                //   title: Row(
+                //     children: const [
+                //       Icon(FeatherIcons.twitter),
+                //       SizedBox(
+                //         width: 8.0,
+                //       ),
+                //       Text(
+                //         'MyDreamy',
+                //         style: TextStyle(fontWeight: FontWeight.bold),
+                //       ),
+                //     ],
+                //   ),
+                //   onTap: () {
+                //     Navigator.pop(context); // Close the drawer
+                //     Navigator.pushNamed(
+                //         context, '/stats'); // Navigate to the stats page
+                //   },
+                // ),
                 // Add more ListTiles for other pages in your app
               ],
             ),

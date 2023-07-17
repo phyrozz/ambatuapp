@@ -1,4 +1,6 @@
 import 'package:ambatuapp/pages/ambatugames.dart';
+import 'package:ambatuapp/pages/characters/axel.dart';
+import 'package:ambatuapp/pages/characters/bus_soldier.dart';
 import 'package:ambatuapp/pages/games/ambatublou.dart';
 import 'package:ambatuapp/pages/games/ambatublou_select_difficulty.dart';
 import 'package:ambatuapp/pages/games/ambatugame.dart';
@@ -15,6 +17,7 @@ import 'package:ambatuapp/pages/characters/nissan.dart';
 import 'package:ambatuapp/pages/characters/turbulence_man.dart';
 import 'package:ambatuapp/pages/characters/viktor.dart';
 import 'package:ambatuapp/pages/characters/yes_king.dart';
+import 'package:ambatuapp/pages/games/flappy_bus/flappy_bus.dart';
 import 'package:ambatuapp/pages/soundboard.dart';
 import 'package:ambatuapp/pages/start_game.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +27,7 @@ import 'pages/stats.dart';
 import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -88,6 +92,8 @@ class MyApp extends StatelessWidget {
               '/characters/daddyAmkaming': (context) =>
                   const DaddyAmkamingPage(),
               '/characters/viktor': (context) => const ViktorPage(),
+              '/characters/busSoldier': (context) => const BusSoldierPage(),
+              '/characters/axel': (context) => const AxelPage(),
               '/soundboard': (context) => const SoundboardPage(),
               '/ambatuwatch': (context) => const AmbatuWatchPage(),
               '/ambatugames': (context) => const AmbatuGamesPage(),
@@ -103,12 +109,21 @@ class MyApp extends StatelessWidget {
                   title: 'Ambatublou',
                   description: 'A Minesweeper Game',
                   navigateTo: AmbatublouSelectDifficulty()),
+              '/games/flappyBus': (context) => const StartGamePage(
+                  title: 'Flappy Bus',
+                  description: 'A Flappy Bird Game.',
+                  navigateTo: FlappyBusPage()),
               // Add routes for other pages in your app
             },
           ),
         );
       },
     );
+  }
+
+  Future<InitializationStatus> _initGoogleMobileAds() {
+    // TODO: Initialize Google Mobile Ads SDK
+    return MobileAds.instance.initialize();
   }
 }
 

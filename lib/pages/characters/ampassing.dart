@@ -15,7 +15,7 @@ class _AmpassingPageState extends State<AmpassingPage> {
     return Scaffold(
       body: CustomScrollView(
         slivers: [
-          CustomCharacterAppBar(),
+          const CustomCharacterAppBar(),
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
@@ -23,9 +23,9 @@ class _AmpassingPageState extends State<AmpassingPage> {
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
-                  children: [
+                  children: const [
                     SizedBox(
                       height: 200,
                     ),

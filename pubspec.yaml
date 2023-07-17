@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 # In Windows, build-name is used as the major, minor, and patch parts
 # of the product and file versions while build-number is used as the build suffix.
-version: 0.2.0+1
+version: 0.3.0+1
 
 environment:
   sdk: '>=2.19.6 <3.0.0'
@@ -48,6 +48,9 @@ dependencies:
   audioplayers: ^4.1.0
   shared_preferences: ^2.1.2
   skeletons: ^0.0.3
+  flame: ^1.7.3
+  google_mobile_ads: ^3.0.0
+  flame_audio: ^2.0.2
 
 dev_dependencies:
   flutter_test:
@@ -68,6 +71,8 @@ flutter:
   assets:
     - assets/
     - assets/sounds/
+    - assets/images/
+    - assets/audio/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
@@ -101,6 +106,9 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-  #
+  fonts:
+    - family: Pixelated
+      fonts:
+        - asset: fonts/04B30.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

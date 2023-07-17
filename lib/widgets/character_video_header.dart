@@ -39,13 +39,13 @@ class CustomCharacterHeaderWithVideo extends SliverPersistentHeaderDelegate {
         ),
         AnimatedOpacity(
           opacity: opacity,
-          duration: Duration(milliseconds: 200),
+          duration: const Duration(milliseconds: 200),
           child: Container(
             decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
           ),
         ),
         Container(
-          padding: EdgeInsets.fromLTRB(15, 0, 0, 25),
+          padding: const EdgeInsets.fromLTRB(15, 0, 0, 25),
           alignment: alignment,
           child: Text(
             text,

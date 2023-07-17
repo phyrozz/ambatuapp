@@ -146,14 +146,14 @@ class _SoundboardPageState extends State<SoundboardPage> {
     return Scaffold(
       drawerEnableOpenDragGesture: true,
       body: CustomScrollView(slivers: [
-        CustomAppBar(),
+        const CustomAppBar(),
         SliverPersistentHeader(
             pinned: true,
             delegate: FixedHeaderDelegate(
                 child: Container(
-                  padding: EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(5),
                   alignment: Alignment.centerLeft,
-                  color: Color.fromARGB(255, 204, 187, 235),
+                  color: const Color.fromARGB(255, 204, 187, 235),
                 ),
                 text: 'Soundboard')),
         SliverGrid(
@@ -163,7 +163,6 @@ class _SoundboardPageState extends State<SoundboardPage> {
               return ElevatedButton(
                 onPressed: () {
                   playSound(soundItem.soundUrl, index);
-                  print(activePlayers);
                   // if (currentIndex == index) {
                   //   stopAllSounds();
                   // } else {
@@ -172,7 +171,7 @@ class _SoundboardPageState extends State<SoundboardPage> {
                 },
                 child: Text(
                   soundItem.name,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18.0,
                   ),
                   textAlign: TextAlign.center,
@@ -181,7 +180,7 @@ class _SoundboardPageState extends State<SoundboardPage> {
             },
             childCount: soundItems.length,
           ),
-          gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+          gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: 200.0,
             mainAxisSpacing: 10.0,
             crossAxisSpacing: 10.0,

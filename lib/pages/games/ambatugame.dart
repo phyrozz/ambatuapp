@@ -4,6 +4,8 @@ import 'package:ambatuapp/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ambatuapp/ad_helper.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AmbatugamePage extends StatefulWidget {
   const AmbatugamePage({Key? key}) : super(key: key);
@@ -20,11 +22,28 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
   AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
   bool showCombo = false;
   Timer? comboTimer;
+  BannerAd? _bannerAd;
 
   @override
   void initState() {
     super.initState();
     lastTapTime = DateTime.now();
+
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            _bannerAd = ad as BannerAd;
+          });
+        },
+        onAdFailedToLoad: (ad, err) {
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   final List<String> audioFiles = [
@@ -55,7 +74,6 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
       activePlayers[0].stop();
       activePlayers.removeAt(0);
     }
-    print(activePlayers);
   }
 
   void updateScore() {
@@ -100,6 +118,7 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
 
   @override
   void dispose() {
+    _bannerAd?.dispose();
     super.dispose();
     for (final f in activePlayers) {
       f.dispose();
@@ -122,119 +141,131 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
         ),
         centerTitle: true,
       ),
-      body: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                RichText(
-                  text: TextSpan(
-                    text: 'Score: ',
-                    style: GoogleFonts.lato(
-                        fontSize: 24.0,
-                        color: Theme.of(context).primaryColorLight),
-                    children: [
-                      TextSpan(
-                        text: '$totalScore',
-                        style: GoogleFonts.lato(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
+      body: SafeArea(
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            // TODO: Display a banner when ready
+            if (_bannerAd != null)
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
                 ),
-                RichText(
-                  text: TextSpan(
-                    text: 'Taps: ',
-                    style: GoogleFonts.lato(
-                        fontSize: 24.0,
-                        color: Theme.of(context).primaryColorLight),
-                    children: [
-                      TextSpan(
-                        text: '$tapCount',
-                        style: GoogleFonts.lato(fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(),
-              Container(
-                padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
-                width: 200,
-                height: 200,
-                child: LayoutBuilder(builder: (context, constraints) {
-                  if (comboCount >= 0 && comboCount < 15) {
-                    return Image.asset('assets/dreamy_default.jpg');
-                  } else if (comboCount >= 15 && comboCount <= 35) {
-                    return Image.asset('assets/dreamy_smiling.jpg');
-                  } else if (comboCount > 35 && comboCount <= 70) {
-                    return Image.asset('assets/dreamy.jpg');
-                  } else {
-                    return Image.asset('assets/dreamy_face.jpg');
-                  }
-                }),
               ),
-              Stack(
-                clipBehavior: Clip.none,
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      padding: MaterialStateProperty.all(
-                        const EdgeInsets.fromLTRB(60, 35, 60, 35),
-                      ),
-                      shape: MaterialStateProperty.all(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(24.0),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Score: ',
+                      style: GoogleFonts.lato(
+                          fontSize: 24.0,
+                          color: Theme.of(context).primaryColorLight),
+                      children: [
+                        TextSpan(
+                          text: '$totalScore',
+                          style: GoogleFonts.lato(fontWeight: FontWeight.bold),
                         ),
-                      ),
-                      shadowColor: null,
-                    ),
-                    onPressed: handleButtonTap,
-                    child: const Text(
-                      'Tap to 🚌!',
-                      style: TextStyle(fontSize: 24.0),
+                      ],
                     ),
                   ),
-                  if (comboCount != 0)
-                    Positioned(
-                      top: -25,
-                      right: -25,
-                      child: AnimatedOpacity(
-                        duration: const Duration(milliseconds: 500),
-                        opacity: showCombo ? 1.0 : 0.0,
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 500),
-                          curve: Curves.easeInOut,
-                          padding: const EdgeInsets.all(12.0),
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(10.0),
+                  RichText(
+                    text: TextSpan(
+                      text: 'Taps: ',
+                      style: GoogleFonts.lato(
+                          fontSize: 24.0,
+                          color: Theme.of(context).primaryColorLight),
+                      children: [
+                        TextSpan(
+                          text: '$tapCount',
+                          style: GoogleFonts.lato(fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const SizedBox(),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+                  width: 200,
+                  height: 200,
+                  child: LayoutBuilder(builder: (context, constraints) {
+                    if (comboCount >= 0 && comboCount < 15) {
+                      return Image.asset('assets/dreamy_default.jpg');
+                    } else if (comboCount >= 15 && comboCount <= 35) {
+                      return Image.asset('assets/dreamy_smiling.jpg');
+                    } else if (comboCount > 35 && comboCount <= 70) {
+                      return Image.asset('assets/dreamy.jpg');
+                    } else {
+                      return Image.asset('assets/dreamy_face.jpg');
+                    }
+                  }),
+                ),
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    ElevatedButton(
+                      style: ButtonStyle(
+                        padding: MaterialStateProperty.all(
+                          const EdgeInsets.fromLTRB(60, 35, 60, 35),
+                        ),
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0),
                           ),
-                          child: Text(
-                            '+$comboCount',
-                            style: const TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
+                        ),
+                        shadowColor: null,
+                      ),
+                      onPressed: handleButtonTap,
+                      child: const Text(
+                        'Tap to 🚌!',
+                        style: TextStyle(fontSize: 24.0),
+                      ),
+                    ),
+                    if (comboCount != 0)
+                      Positioned(
+                        top: -25,
+                        right: -25,
+                        child: AnimatedOpacity(
+                          duration: const Duration(milliseconds: 500),
+                          opacity: showCombo ? 1.0 : 0.0,
+                          child: AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                            padding: const EdgeInsets.all(12.0),
+                            decoration: BoxDecoration(
+                              color: Colors.green,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Text(
+                              '+$comboCount',
+                              style: const TextStyle(
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                ],
-              ),
-              const SizedBox(),
-            ],
-          ),
-        ],
+                  ],
+                ),
+                const SizedBox(),
+              ],
+            ),
+          ],
+        ),
       ),
       drawer: const Sidebar(currentPage: 'AmbatuTap'),
     );

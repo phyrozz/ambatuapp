@@ -8,14 +8,15 @@ import 'package:flutter/material.dart';
 
 class Bird extends SpriteComponent
     with HasGameRef<FlappyBirdGame>, CollisionCallbacks {
-  Bird();
+  String birdAssetPath;
+  Bird(this.birdAssetPath);
 
   double velocity = 200;
   final gravity = 200;
 
   @override
   Future<void> onLoad() async {
-    final image = await Flame.images.load('player.jpg');
+    final image = await Flame.images.load(birdAssetPath);
     size = Vector2(30, 30);
     position = Vector2(50, gameRef.size.y / 2 - size.y / 2);
     sprite = Sprite(image);

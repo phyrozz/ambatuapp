@@ -97,22 +97,11 @@ class MyApp extends StatelessWidget {
               '/soundboard': (context) => const SoundboardPage(),
               '/ambatuwatch': (context) => const AmbatuWatchPage(),
               '/ambatugames': (context) => const AmbatuGamesPage(),
-              '/games/ambatugame': (context) => const StartGamePage(
-                  title: 'AmbatuTap',
-                  description: 'A Tap Game',
-                  navigateTo: AmbatugamePage()),
-              '/games/ambatusnake': (context) => const StartGamePage(
-                  title: 'AmbatuSnake',
-                  description: 'A Snake Game',
-                  navigateTo: AmbatuSnakePage()),
-              '/games/ambatublou': (context) => const StartGamePage(
-                  title: 'Ambatublou',
-                  description: 'A Minesweeper Game',
-                  navigateTo: AmbatublouSelectDifficulty()),
-              '/games/flappyBus': (context) => const StartGamePage(
-                  title: 'Flappy Bus',
-                  description: 'A Flappy Bird Game.',
-                  navigateTo: FlappyBusPage()),
+              '/games/ambatugame': (context) => const AmbatugamePage(),
+              '/games/ambatusnake': (context) => const AmbatuSnakePage(),
+              '/games/ambatublou': (context) =>
+                  const AmbatublouSelectDifficulty(),
+              '/games/flappyBus': (context) => const FlappyBusPage(),
               // Add routes for other pages in your app
             },
           ),
@@ -214,7 +203,7 @@ class ThemeModel extends ChangeNotifier {
     progressIndicatorTheme: const ProgressIndicatorThemeData(
       color: Colors.deepPurple,
     ),
-    // ...
+    dialogBackgroundColor: Colors.deepPurple[100],
   );
 
   final darkTheme = ThemeData(
@@ -269,6 +258,6 @@ class ThemeModel extends ChangeNotifier {
         foregroundColor: MaterialStatePropertyAll(Colors.deepPurple[200]),
       ),
     ),
-    // ...
+    dialogBackgroundColor: const Color.fromARGB(255, 31, 17, 73),
   );
 }

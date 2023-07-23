@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
@@ -11,15 +13,13 @@ import 'package:flame_audio/flame_audio.dart';
 
 class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   final BuildContext context;
-  // final BannerAd? bannerAd;
-  FlappyBirdGame(
-    this.context,
-    // this.bannerAd
-  );
+  final BannerAd? bannerAd;
+  FlappyBirdGame(this.context, this.bannerAd);
 
   int score = 0;
   late AudioPool death;
-  late AudioPool scoreSound;
+  late List<AudioPool> selectedScoreSounds;
+  final Random random = Random();
   late AudioPool tap;
   late TextComponent textComponent;
   TextPaint scoreTextBorderPaint = TextPaint(
@@ -40,20 +40,18 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   double _timeSinceLastPipeGroup = 0;
   double _countToFirstPipeGroup = 0;
   double _scoreCountInterval = 0;
+  final gameOverOverlayIdentifier = "GameOver";
+  String selectedBirdAsset = 'bird_1.png';
 
   @override
   Future<void> onLoad() async {
     death =
         await AudioPool.createFromAsset(path: 'audio/death.mp3', maxPlayers: 5);
-    scoreSound = await AudioPool.createFromAsset(
-        path: 'audio/score.mp3', maxPlayers: 100);
-    tap =
-        await AudioPool.createFromAsset(path: 'audio/tap.mp3', maxPlayers: 100);
+    tap = await AudioPool.createFromAsset(path: 'audio/tap.mp3', maxPlayers: 5);
 
     addAll([
       Background(),
       Ground(),
-      _bird = Bird(),
       pipeGroup = PipeGroup(),
     ]);
 
@@ -70,6 +68,65 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     for (PipeGroup pipeGroup in pipeGroupsToRemove) {
       pipeGroup.removeFromParent();
     }
+
+    overlays.add('CharacterSelection');
+    pauseEngine();
+    _bird = Bird(selectedBirdAsset);
+  }
+
+  Future<Bird> loadBirdAsset() async {
+    _bird.removeFromParent();
+    _bird = Bird(
+        selectedBirdAsset); // Create a new bird component with the selected asset
+    add(_bird);
+    switch (selectedBirdAsset) {
+      case 'bird_1.png':
+        selectedScoreSounds = await Future.wait([
+          AudioPool.createFromAsset(path: 'audio/score_1.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(path: 'audio/score_2.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(path: 'audio/score_3.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(path: 'audio/score_4.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(path: 'audio/score_5.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(path: 'audio/score_6.mp3', maxPlayers: 5),
+        ]);
+        break;
+      case 'bird_2.png':
+        selectedScoreSounds = await Future.wait([
+          AudioPool.createFromAsset(
+              path: 'audio/score_kakangku_1.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(
+              path: 'audio/score_kakangku_2.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(
+              path: 'audio/score_kakangku_3.mp3', maxPlayers: 5),
+        ]);
+        break;
+      case 'bird_3.png':
+        selectedScoreSounds = await Future.wait([
+          AudioPool.createFromAsset(
+              path: 'audio/score_nissan_1.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(
+              path: 'audio/score_nissan_2.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(
+              path: 'audio/score_nissan_3.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(
+              path: 'audio/score_nissan_4.mp3', maxPlayers: 5),
+        ]);
+        break;
+      case 'bird_4.png':
+        selectedScoreSounds = await Future.wait([
+          AudioPool.createFromAsset(
+              path: 'audio/score_bunda_1.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(
+              path: 'audio/score_bunda_2.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(
+              path: 'audio/score_bunda_3.mp3', maxPlayers: 5),
+          AudioPool.createFromAsset(
+              path: 'audio/score_bunda_4.mp3', maxPlayers: 5),
+        ]);
+        break;
+    }
+    resetGame(); // Add the new bird component to the game
+    return _bird;
   }
 
   void resetGame() {
@@ -79,6 +136,11 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     _scoreCountInterval = 0;
     _countToFirstPipeGroup = 0;
     score = 0;
+
+    overlays.clear();
+    // Display the ad on the overlay
+    overlays.add('AdBanner');
+    resumeEngine();
 
     // Reset bird position
     _bird.reset();
@@ -107,14 +169,41 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
   }
 
   @override
+  void onDetach() {
+    super.onDetach();
+    try {
+      death.dispose();
+      // for (var sound in scoreSounds) {
+      //   sound.dispose();
+      // }
+      // for (var sound in bundaScoreSounds) {
+      //   sound.dispose();
+      // }
+      // for (var sound in kakangkuScoreSounds) {
+      //   sound.dispose();
+      // }
+      // for (var sound in nissanScoreSounds) {
+      //   sound.dispose();
+      // }
+      for (var sound in selectedScoreSounds) {
+        sound.dispose();
+      }
+      tap.dispose();
+    } catch (e) {
+      print("Error disposing death audio pool: $e");
+    }
+  }
+
+  @override
   void update(double dt) {
     super.update(dt);
     _timeSinceLastPipeGroup += dt;
     _countToFirstPipeGroup += dt;
-    if (_countToFirstPipeGroup > 2.8) {
+    if (_countToFirstPipeGroup > 2.7) {
       _scoreCountInterval += dt;
       if (_scoreCountInterval > 1.5) {
-        scoreSound.start();
+        int randomIndex = random.nextInt(selectedScoreSounds.length);
+        selectedScoreSounds[randomIndex].start();
         score++;
         _scoreCountInterval = 0;
       }
@@ -143,38 +232,6 @@ class FlappyBirdGame extends FlameGame with TapDetector, HasCollisionDetection {
     death.start();
     // Pause the game
     pauseEngine();
-
-    showModalBottomSheet<void>(
-      context: context,
-      isDismissible: false,
-      enableDrag: false,
-      builder: (BuildContext context) {
-        return WillPopScope(
-          onWillPop: () async => false,
-          child: Container(
-            height: 200,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'Game Over',
-                  style: TextStyle(fontSize: 32.0),
-                ),
-                const SizedBox(height: 12.0),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context); // Close the modal
-
-                    resetGame(); // Restart the game
-                    resumeEngine(); // Resume the game
-                  },
-                  child: const Text('Try Again'),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
+    overlays.add(gameOverOverlayIdentifier);
   }
 }

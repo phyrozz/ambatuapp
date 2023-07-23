@@ -35,9 +35,11 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
       size: AdSize.banner,
       listener: BannerAdListener(
         onAdLoaded: (ad) {
-          setState(() {
-            _bannerAd = ad as BannerAd;
-          });
+          if (mounted) {
+            setState(() {
+              _bannerAd = ad as BannerAd;
+            });
+          }
         },
         onAdFailedToLoad: (ad, err) {
           ad.dispose();
@@ -145,10 +147,9 @@ class _AmbatugamePageState extends State<AmbatugamePage> {
         child: Stack(
           alignment: Alignment.topCenter,
           children: [
-            // TODO: Display a banner when ready
             if (_bannerAd != null)
-              Align(
-                alignment: Alignment.bottomCenter,
+              Positioned(
+                bottom: 10,
                 child: Container(
                   width: _bannerAd!.size.width.toDouble(),
                   height: _bannerAd!.size.height.toDouble(),

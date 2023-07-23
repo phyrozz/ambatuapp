@@ -1,9 +1,11 @@
+import 'package:ambatuapp/ad_helper.dart';
 import 'package:ambatuapp/pages/games/ambatublou_select_difficulty.dart';
 import 'package:ambatuapp/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 enum CellState {
   hidden,
@@ -33,11 +35,30 @@ class _AmbatublouGameState extends State<AmbatublouGame> {
   late List<List<bool>> mines;
   bool gameOver = false;
   final gameOverSfx = AssetsAudioPlayer();
+  BannerAd? _bannerAd;
 
   @override
   void initState() {
     super.initState();
     initializeGame();
+
+    BannerAd(
+      adUnitId: AdHelper.bannerAdUnitId,
+      request: const AdRequest(),
+      size: AdSize.banner,
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          if (mounted) {
+            setState(() {
+              _bannerAd = ad as BannerAd;
+            });
+          }
+        },
+        onAdFailedToLoad: (ad, err) {
+          ad.dispose();
+        },
+      ),
+    ).load();
   }
 
   void initializeGame() {
@@ -207,6 +228,17 @@ class _AmbatublouGameState extends State<AmbatublouGame> {
                             }
                           },
                         ),
+                        ElevatedButton(
+                          style: const ButtonStyle(
+                            padding: MaterialStatePropertyAll(
+                                EdgeInsets.fromLTRB(30, 15, 30, 15)),
+                          ),
+                          child: const Text('Exit'),
+                          onPressed: () {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          },
+                        ),
                       ],
                     ),
                   ],
@@ -223,6 +255,7 @@ class _AmbatublouGameState extends State<AmbatublouGame> {
   void dispose() {
     gameOverSfx.stop();
     gameOverSfx.dispose();
+    _bannerAd?.dispose();
     super.dispose();
   }
 
@@ -241,38 +274,54 @@ class _AmbatublouGameState extends State<AmbatublouGame> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height / 1.2,
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: List.generate(widget.rows, (row) {
-              return Row(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            if (_bannerAd != null)
+              Positioned(
+                bottom: 10,
+                child: Container(
+                  width: _bannerAd!.size.width.toDouble(),
+                  height: _bannerAd!.size.height.toDouble(),
+                  child: AdWidget(ad: _bannerAd!),
+                ),
+              ),
+            Container(
+              height: MediaQuery.of(context).size.height / 1.2,
+              width: MediaQuery.of(context).size.width,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(widget.cols, (col) {
-                  return GestureDetector(
-                    onTap: () => revealCell(row, col),
-                    onLongPress: () => flagCell(row, col),
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 300),
-                      curve: Curves.easeInOut,
-                      width: MediaQuery.of(context).size.width / widget.cols,
-                      height: MediaQuery.of(context).size.width / widget.cols,
-                      decoration: BoxDecoration(
-                        color: gameBoard[row][col] == CellState.revealed
-                            ? Theme.of(context).primaryColorDark
-                            : Theme.of(context).primaryColorLight,
-                        border: Border.all(color: Colors.grey),
-                      ),
-                      child: Center(
-                        child: _buildCellContent(row, col),
-                      ),
-                    ),
+                children: List.generate(widget.rows, (row) {
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(widget.cols, (col) {
+                      return GestureDetector(
+                        onTap: () => revealCell(row, col),
+                        onLongPress: () => flagCell(row, col),
+                        child: AnimatedContainer(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                          width:
+                              MediaQuery.of(context).size.width / widget.cols,
+                          height:
+                              MediaQuery.of(context).size.width / widget.cols,
+                          decoration: BoxDecoration(
+                            color: gameBoard[row][col] == CellState.revealed
+                                ? Theme.of(context).primaryColorDark
+                                : Theme.of(context).primaryColorLight,
+                            border: Border.all(color: Colors.grey),
+                          ),
+                          child: Center(
+                            child: _buildCellContent(row, col),
+                          ),
+                        ),
+                      );
+                    }),
                   );
                 }),
-              );
-            }),
-          ),
+              ),
+            ),
+          ],
         ),
       ),
       drawer: const Sidebar(currentPage: 'Ambatublou'),

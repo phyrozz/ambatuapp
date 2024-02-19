@@ -8,7 +8,7 @@ class PipeGroup extends PositionComponent with HasGameRef<FlappyBirdGame> {
   PipeGroup();
 
   final Random _random = Random();
-  static const double pipeSpacingFraction = 0.3;
+  static const double pipeSpacingFraction = 0.2;
 
   @override
   Future<void> onLoad() async {

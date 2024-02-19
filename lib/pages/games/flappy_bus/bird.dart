@@ -12,12 +12,12 @@ class Bird extends SpriteComponent
   Bird(this.birdAssetPath);
 
   double velocity = 200;
-  final gravity = 200;
+  final gravity = 400;
 
   @override
   Future<void> onLoad() async {
     final image = await Flame.images.load(birdAssetPath);
-    size = Vector2(30, 30);
+    size = Vector2(40, 40);
     position = Vector2(50, gameRef.size.y / 2 - size.y / 2);
     sprite = Sprite(image);
 

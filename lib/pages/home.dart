@@ -1,12 +1,9 @@
-import 'dart:convert';
-import 'package:ambatuapp/widgets/page_load.dart';
+import 'package:ambatuapp/pages/ambatuwatch.dart';
 import 'package:flutter/material.dart';
 import 'package:skeletons/skeletons.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../widgets/fixed_header.dart';
 import '../widgets/sidebar.dart';
 import '../widgets/appbar.dart';
-import 'package:ambatuapp/twitter_account.dart';
 import 'package:http/http.dart' as http;
 import 'package:connectivity/connectivity.dart';
 import 'package:ambatuapp/yt_search_results.dart';
@@ -63,7 +60,7 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> fetchUserData() async {
     const String ytSearchResultApiUrl =
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq';
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq';
 
     try {
       if (mounted) {
@@ -187,17 +184,6 @@ class _HomePageState extends State<HomePage> {
                         //     'https://media.tenor.com/c3xvaQpdxZ8AAAAd/kkatmane.gif',
                         ),
                   ),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    delegate: FixedHeaderDelegate(
-                      text: 'Videos',
-                      child: Container(
-                        padding: const EdgeInsets.all(5),
-                        alignment: Alignment.centerLeft,
-                        color: const Color.fromARGB(255, 204, 187, 235),
-                      ),
-                    ),
-                  ),
                   isYTSearchResultListLoading
                       ? SliverList(
                           delegate:
@@ -249,86 +235,96 @@ class _HomePageState extends State<HomePage> {
                       : SliverList(
                           delegate: SliverChildBuilderDelegate(
                               (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () => _launchUrl(ytSearchResultUrls[index]),
-                            child: Card(
-                              clipBehavior: Clip.antiAlias,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.stretch,
-                                children: [
-                                  Container(
-                                    height: 250,
-                                    child: Image.network(
-                                      ytSearchResultThumbnails[index],
-                                      fit: BoxFit.cover,
-                                      loadingBuilder: (BuildContext context,
-                                          Widget child,
-                                          ImageChunkEvent? loadingProgress) {
-                                        if (loadingProgress == null) {
-                                          return child;
-                                        }
-                                        return Center(
-                                          child: CircularProgressIndicator(
-                                            value: loadingProgress
-                                                        .expectedTotalBytes !=
-                                                    null
-                                                ? loadingProgress
-                                                        .cumulativeBytesLoaded /
-                                                    loadingProgress
-                                                        .expectedTotalBytes!
-                                                : null,
-                                          ),
-                                        );
-                                      },
-                                    ),
+                          return Material(
+                            child: Container(
+                              color: Colors.transparent,
+                              child: Card(
+                                clipBehavior: Clip.antiAlias,
+                                child: InkWell(
+                                  onTap: () =>
+                                      _launchUrl(ytSearchResultUrls[index]),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.stretch,
+                                    children: [
+                                      Container(
+                                        height: 250,
+                                        child: Image.network(
+                                          ytSearchResultThumbnails[index],
+                                          fit: BoxFit.cover,
+                                          loadingBuilder: (BuildContext context,
+                                              Widget child,
+                                              ImageChunkEvent?
+                                                  loadingProgress) {
+                                            if (loadingProgress == null) {
+                                              return child;
+                                            }
+                                            return Center(
+                                              child: CircularProgressIndicator(
+                                                value: loadingProgress
+                                                            .expectedTotalBytes !=
+                                                        null
+                                                    ? loadingProgress
+                                                            .cumulativeBytesLoaded /
+                                                        loadingProgress
+                                                            .expectedTotalBytes!
+                                                    : null,
+                                              ),
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10,
+                                            right: 10,
+                                            top: 10,
+                                            bottom: 5),
+                                        child: Text(
+                                          ytSearchResultTitles[index],
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 20.0),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.only(
+                                            left: 10, right: 10, bottom: 18),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              ytSearchResultChannelNames[index],
+                                              style: const TextStyle(
+                                                  fontSize: 14.0),
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              _formatViews(
+                                                      ytSearchResultViewCounts[
+                                                          index]) +
+                                                  " views",
+                                              style: const TextStyle(
+                                                  fontSize: 14.0),
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              _getTimeAgo(
+                                                  ytSearchResultUploadDates[
+                                                      index]),
+                                              style: const TextStyle(
+                                                  fontSize: 14.0),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10,
-                                        right: 10,
-                                        top: 10,
-                                        bottom: 5),
-                                    child: Text(
-                                      ytSearchResultTitles[index],
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20.0),
-                                      textAlign: TextAlign.left,
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10, bottom: 18),
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          ytSearchResultChannelNames[index],
-                                          style:
-                                              const TextStyle(fontSize: 14.0),
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          _formatViews(ytSearchResultViewCounts[
-                                                  index]) +
-                                              " views",
-                                          style:
-                                              const TextStyle(fontSize: 14.0),
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          _getTimeAgo(
-                                              ytSearchResultUploadDates[index]),
-                                          style:
-                                              const TextStyle(fontSize: 14.0),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
+                                ),
                               ),
                             ),
                           );
@@ -338,14 +334,23 @@ class _HomePageState extends State<HomePage> {
                                   : ytSearchResultTitles.length)),
                   ytSearchResultTitles.length > 5
                       ? SliverToBoxAdapter(
-                          child: Container(
-                            height: 50,
-                            child: Builder(
-                              builder: (context) => TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/ambatuwatch');
-                                },
-                                child: const Text('See More'),
+                          child: Material(
+                            child: Container(
+                              color: Colors.transparent,
+                              height: 50,
+                              child: Builder(
+                                builder: (context) => TextButton(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<void>(
+                                        builder: (BuildContext context) =>
+                                            const AmbatuWatchPage(),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text('See More'),
+                                ),
                               ),
                             ),
                           ),

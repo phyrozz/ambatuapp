@@ -3,14 +3,14 @@ import 'package:ambatuapp/widgets/character_header.dart';
 import 'package:flutter/material.dart';
 import '../../widgets/sidebar.dart';
 
-class NissanPage extends StatefulWidget {
-  const NissanPage({super.key});
+class HumpDayPage extends StatefulWidget {
+  const HumpDayPage({super.key});
 
   @override
-  State<NissanPage> createState() => _NissanPageState();
+  State<HumpDayPage> createState() => _HumpDayPageState();
 }
 
-class _NissanPageState extends State<NissanPage> {
+class _HumpDayPageState extends State<HumpDayPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,7 +20,8 @@ class _NissanPageState extends State<NissanPage> {
           SliverPersistentHeader(
               pinned: true,
               delegate: CustomCharacterHeader(
-                  bgUrl: 'assets/nissan_2.jpg', text: 'Nissan')),
+                  bgUrl: 'assets/hump_day_header.jpg',
+                  text: 'Brandon Currington')),
           SliverList(
             delegate: SliverChildListDelegate([
               Padding(

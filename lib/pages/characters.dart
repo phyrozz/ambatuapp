@@ -1,3 +1,16 @@
+import 'package:ambatuapp/pages/characters/ampassing.dart';
+import 'package:ambatuapp/pages/characters/ankaming.dart';
+import 'package:ambatuapp/pages/characters/axel.dart';
+import 'package:ambatuapp/pages/characters/bunda.dart';
+import 'package:ambatuapp/pages/characters/bus_soldier.dart';
+import 'package:ambatuapp/pages/characters/daddy_amkaming.dart';
+import 'package:ambatuapp/pages/characters/dreamy.dart';
+import 'package:ambatuapp/pages/characters/hump_day.dart';
+import 'package:ambatuapp/pages/characters/kakangku.dart';
+import 'package:ambatuapp/pages/characters/nissan.dart';
+import 'package:ambatuapp/pages/characters/turbulence_man.dart';
+import 'package:ambatuapp/pages/characters/viktor.dart';
+import 'package:ambatuapp/pages/characters/yes_king.dart';
 import 'package:ambatuapp/widgets/appbar.dart';
 import 'package:ambatuapp/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
@@ -29,7 +42,12 @@ class CharacterListPage extends StatelessWidget {
                 delegate: SliverChildListDelegate([
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/dreamy');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const DreamyPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -59,7 +77,13 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/ankaming');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const AnkamingPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -89,7 +113,13 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/daddyAmkaming');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const DaddyAmkamingPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -119,7 +149,12 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/viktor');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const ViktorPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -149,7 +184,12 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/bunda');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const BundaPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -179,7 +219,13 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/kakangku');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const KakangkuPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -209,7 +255,12 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/nissan');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const NissanPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -239,7 +290,50 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/ampassing');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const HumpDayPage(),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      clipBehavior: Clip.antiAlias,
+                      child: Stack(
+                        fit: StackFit.expand,
+                        children: [
+                          Image.asset(
+                            'assets/hump_day.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                          Container(
+                            alignment: Alignment.bottomCenter,
+                            padding: const EdgeInsets.all(8.0),
+                            color: const Color.fromARGB(117, 0, 0, 0),
+                            child: const Text(
+                              'Brandon Currington',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const AmpassingPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -269,7 +363,13 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/yesKing');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const YesKingPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -299,7 +399,13 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/turbulenceMan');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const TurbulenceManPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -329,7 +435,12 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/axel');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) => const AxelPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,
@@ -359,7 +470,13 @@ class CharacterListPage extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.pushNamed(context, '/characters/busSoldier');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute<void>(
+                          builder: (BuildContext context) =>
+                              const BusSoldierPage(),
+                        ),
+                      );
                     },
                     child: Card(
                       clipBehavior: Clip.antiAlias,

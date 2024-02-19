@@ -55,10 +55,8 @@ class _AmbatuWatchPageState extends State<AmbatuWatchPage> {
   }
 
   Future<void> fetchUserData() async {
-    const String twitterApiUrl =
-        'https://api.apify.com/v2/acts/quacker~twitter-url-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq';
     const String ytSearchResultApiUrl =
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq';
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq';
 
     try {
       if (mounted) {

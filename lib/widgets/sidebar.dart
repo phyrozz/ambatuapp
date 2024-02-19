@@ -1,7 +1,12 @@
 import 'package:ambatuapp/main.dart';
+import 'package:ambatuapp/pages/ambatugames.dart';
+import 'package:ambatuapp/pages/ambatuwatch.dart';
+import 'package:ambatuapp/pages/characters.dart';
+import 'package:ambatuapp/pages/home.dart';
+import 'package:ambatuapp/pages/soundboard.dart';
+import 'package:ambatuapp/supabase.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class Sidebar extends StatelessWidget {
   final String currentPage;
@@ -29,8 +34,8 @@ class Sidebar extends StatelessWidget {
                 ),
                 ListTile(
                   contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
-                  title: Row(
-                    children: const [
+                  title: const Row(
+                    children: [
                       Icon(Icons.home_outlined),
                       SizedBox(
                         width: 8.0,
@@ -43,14 +48,18 @@ class Sidebar extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
-                    Navigator.pushNamed(
-                        context, '/'); // Navigate to the stats page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => const HomePage(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
                   contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
-                  title: Row(
-                    children: const [
+                  title: const Row(
+                    children: [
                       Icon(Icons.tv_rounded),
                       SizedBox(
                         width: 8.0,
@@ -63,14 +72,19 @@ class Sidebar extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
-                    Navigator.pushNamed(
-                        context, '/ambatuwatch'); // Navigate to the stats page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const AmbatuWatchPage(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
                   contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
-                  title: Row(
-                    children: const [
+                  title: const Row(
+                    children: [
                       Icon(Icons.person_outline),
                       SizedBox(
                         width: 8.0,
@@ -83,14 +97,19 @@ class Sidebar extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
-                    Navigator.pushNamed(
-                        context, '/characters'); // Navigate to the stats page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const CharacterListPage(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
                   contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
-                  title: Row(
-                    children: const [
+                  title: const Row(
+                    children: [
                       Icon(Icons.audiotrack_outlined),
                       SizedBox(
                         width: 8.0,
@@ -103,14 +122,19 @@ class Sidebar extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
-                    Navigator.pushNamed(
-                        context, '/soundboard'); // Navigate to the stats page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const SoundboardPage(),
+                      ),
+                    );
                   },
                 ),
                 ListTile(
                   contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
-                  title: Row(
-                    children: const [
+                  title: const Row(
+                    children: [
                       Icon(Icons.gamepad_outlined),
                       SizedBox(
                         width: 8.0,
@@ -123,8 +147,13 @@ class Sidebar extends StatelessWidget {
                   ),
                   onTap: () {
                     Navigator.pop(context); // Close the drawer
-                    Navigator.pushNamed(
-                        context, '/ambatugames'); // Navigate to the stats page
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const AmbatuGamesPage(),
+                      ),
+                    );
                   },
                 ),
                 // ListTile(
@@ -150,6 +179,25 @@ class Sidebar extends StatelessWidget {
                 // Add more ListTiles for other pages in your app
               ],
             ),
+          ),
+          ListTile(
+            contentPadding: const EdgeInsets.fromLTRB(10, 3, 0, 3),
+            title: const Row(
+              children: [
+                Icon(Icons.logout_rounded),
+                SizedBox(
+                  width: 8.0,
+                ),
+                Text(
+                  'Log out',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            onTap: () {
+              Navigator.pop(context);
+              SupabaseAuth().signOut();
+            },
           ),
           Consumer<ThemeModel>(
             builder: (context, themeModel, _) {

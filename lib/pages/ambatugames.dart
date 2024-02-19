@@ -1,3 +1,7 @@
+import 'package:ambatuapp/pages/games/ambatublou_select_difficulty.dart';
+import 'package:ambatuapp/pages/games/ambatugame.dart';
+import 'package:ambatuapp/pages/games/ambatusnake.dart';
+import 'package:ambatuapp/pages/games/flappy_bus/flappy_bus.dart';
 import 'package:ambatuapp/widgets/appbar.dart';
 import 'package:ambatuapp/widgets/sidebar.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +32,13 @@ class AmbatuGamesPage extends StatelessWidget {
               delegate: SliverChildListDelegate([
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/games/ambatugame');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const AmbatugamePage(),
+                      ),
+                    );
                   },
                   child: Card(
                     clipBehavior: Clip.antiAlias,
@@ -58,7 +68,13 @@ class AmbatuGamesPage extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/games/ambatusnake');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const AmbatuSnakePage(),
+                      ),
+                    );
                   },
                   child: Card(
                     clipBehavior: Clip.antiAlias,
@@ -88,7 +104,13 @@ class AmbatuGamesPage extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/games/ambatublou');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const AmbatublouSelectDifficulty(),
+                      ),
+                    );
                   },
                   child: Card(
                     clipBehavior: Clip.antiAlias,
@@ -118,7 +140,13 @@ class AmbatuGamesPage extends StatelessWidget {
                 ),
                 InkWell(
                   onTap: () {
-                    Navigator.pushNamed(context, '/games/flappyBus');
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) =>
+                            const FlappyBusPage(),
+                      ),
+                    );
                   },
                   child: Card(
                     clipBehavior: Clip.antiAlias,

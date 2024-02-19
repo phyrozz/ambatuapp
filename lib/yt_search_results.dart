@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 class YTSearchResults {
   static Future<List<String>> fetchYTSearchResultUrls() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -21,7 +21,7 @@ class YTSearchResults {
 
   static Future<List<String>> fetchYTSearchResultTitles() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -38,7 +38,7 @@ class YTSearchResults {
 
   static Future<List> fetchYTSearchResultThumbnails() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -54,7 +54,7 @@ class YTSearchResults {
 
   static Future<List> fetchYTSearchResultViewCounts() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -70,7 +70,7 @@ class YTSearchResults {
 
   static Future<List> fetchYTSearchResultUploadDates() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -86,7 +86,7 @@ class YTSearchResults {
 
   static Future<List> fetchYTSearchResultChannelNames() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -102,7 +102,7 @@ class YTSearchResults {
 
   static Future<List> fetchYTSearchResultChannelUrls() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -118,7 +118,7 @@ class YTSearchResults {
 
   static Future<List> fetchYTSearchResultLikes() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -134,7 +134,7 @@ class YTSearchResults {
 
   static Future<List> fetchYTSearchResultNumberOfSubscribers() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);
@@ -151,7 +151,7 @@ class YTSearchResults {
 
   static Future<List> fetchYTSearchResultVideoDuration() async {
     final response = await http.get(Uri.parse(
-        'https://api.apify.com/v2/acts/bernardo~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
+        'https://api.apify.com/v2/acts/streamers~youtube-scraper/runs/last/dataset/items?token=apify_api_kaFcgcBqiY440vWPsDdhGXOZk5A87O4um3pq'));
 
     if (response.statusCode == 200) {
       final jsonData = jsonDecode(response.body);

@@ -8,7 +8,6 @@ class CustomAppBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       flexibleSpace: FlexibleSpaceBar(
-        centerTitle: true,
         title: Text(
           'AmbatuApp',
           style: GoogleFonts.lato(
